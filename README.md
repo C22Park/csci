@@ -1,2 +1,0 @@
-# csci
-Idk 
