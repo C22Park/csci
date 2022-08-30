@@ -14,7 +14,11 @@ int main(){
     cin >> gold;
     cout << endl;
 
-    if (gold > 0)
+    if (!cin ) // if the user puts in a non integer then stop program and display "Invalid response."
+    {
+        cout << "Invalid response." << endl;
+    }
+    else if (gold >= 0)
     {
     cout << "You have " << gold << " gold. Would you like to convert this to silver or copper? ";
     cin >> silverOrCopper;
