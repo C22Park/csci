@@ -10,11 +10,12 @@ int main(){
     string silverOrCopper; // used to decide what the user wants to convert their gold into
     int result; // used to display final result
 
+    cout << "1 gold = 100 silver = 10000 copper" << endl;
     cout << "Enter the amount of gold you have: ";
     cin >> gold;
     cout << endl;
 
-    if (!cin ) // if the user puts in a non integer then stop program and display "Invalid response."
+    if (!cin ) // if the user puts in a non integer then display "Invalid response." and move to the end of the program
     {
         cout << "Invalid response." << endl;
     }
