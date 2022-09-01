@@ -93,10 +93,10 @@ int main(){
     }
 
     string charClass; // characters class
-    int charAddHP; // used in conjunction w baseHP to get MaxHP
-    int charAddINT; // used in conjunction w baseINT to get MaxMP and INT
-    int charAddVIT; // used in conjunction w baseVIT to get VIT
-    int charAddSTR; // used in conjunction w baseSTR to get STR
+    int charAddHP; // used in conjunction w baseHP to get MaxHP, later used for equipment to augment stat
+    int charAddINT; // used in conjunction w baseINT to get MaxMP and INT, later used for equipment to augment stat
+    int charAddVIT; // used in conjunction w baseVIT to get VIT, later used for equipment to augment stat
+    int charAddSTR; // used in conjunction w baseSTR to get STR, later used for equipment to augment stat
     int charMaxHP; // max HP
     int charHP; // current HP
     int charMaxMP; //max MP
