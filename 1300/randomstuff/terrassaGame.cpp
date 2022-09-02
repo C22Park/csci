@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
-
+#include <iomanip>
+#include <unistd.h>
 
 using namespace std;
 
 int main(){
-    
+    system("clear");
     cout << "Hundreds of years ago conflict broke out across the continent of Terrassa. Now the world is in a state of unparralled peace,\nhowever dark forces are vying for control. This is the story of you and your quest to save Terrassa.\n" << endl;
 
     string charName;
@@ -40,7 +41,6 @@ int main(){
         break;
     }
     }
-    cout << endl;
     
     int charLVL = 0; // characters current level
     int charXP = 0; // characters current XP
@@ -163,14 +163,32 @@ int main(){
     cout << "This is the story of " << charName << ", " << pronounSubj << " are ";
     }
     if (charRace == "human" || charRace == "dwarf"){
-    cout << "a " << charRace << " " << charClass << " from the kingdom of " << startKingdom << "\n" << endl;
+    cout << "a " << charRace << " " << charClass << " from The Kingdom of " << startKingdom << "\n" << endl;
     }
     else {
-    cout << "an " << charRace << " " << charClass << " from the kingdom of " << startKingdom << "\n" << endl;
-    }
+    cout << "an " << charRace << " " << charClass << " from The Kingdom of " << startKingdom << "\n" << endl;
+    }                                       
+
+    string charResponse;
+
+    sleep(5);
+    system("clear");
 
     if (startKingdom == "Glasshire"){
 
+        cout << " _______________________________________________\n" 
+             << "|COMMANDS:   stats  visit guild   visit forest  |\n"
+             << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n" << endl;
+        if (charGender != "nb"){
+            cout << "As " << charName << " is walking through the streets of " << pronounAdj << " village " << pronounSubj << " hears a mother telling her kids,\n"
+                 << "'Don't you dare go into the forest, I got word from the guild that goblins are in the area'\n" << endl;
+        }
+        else {
+            cout << "As " << charName << " is walking through the streets of " << pronounAdj << " village " << pronounSubj << " hear a mother telling her kids,\n"
+                 << "'Don't you dare go into the forest, I got word from the guild that goblins are in the area'\n" << endl;
+        }
+        sleep(2);
+        cout << charName << " decides to do what?\n" << endl;
     }
 
     return 0;
