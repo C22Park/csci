@@ -44,6 +44,9 @@ int main(){
     
     int charLVL = 0; // characters current level
     int charXP = 0; // characters current XP
+    int gold = 0; // characters current gold
+    int silver = 0; // characters current silver
+    int copper = 0; // characters current copper
     int charBaseHP; // characters base HP, determined by race and class
     int charBaseINT; // characters base INT, determined by race and class
     int charBaseVIT; // characters base VIT, determined by race and class
@@ -160,10 +163,14 @@ int main(){
     cout << "This is the story of " << charName << ", " << pronounSubj << " are ";
     }
     if (charRace == "human" || charRace == "dwarf"){
-    cout << "a " << charRace << " " << charClass << " from the kingdom of " << startKingdom << endl;
+    cout << "a " << charRace << " " << charClass << " from the kingdom of " << startKingdom << "\n" << endl;
     }
     else {
-    cout << "an " << charRace << " " << charClass << " from the kingdom of " << startKingdom << endl;
+    cout << "an " << charRace << " " << charClass << " from the kingdom of " << startKingdom << "\n" << endl;
+    }
+
+    if (startKingdom == "Glasshire"){
+
     }
 
     return 0;
