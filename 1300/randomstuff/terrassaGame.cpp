@@ -7,11 +7,11 @@ using namespace std;
 
 int main(){
     system("clear");
-    cout << "Hundreds of years ago conflict broke out across the continent of Terrassa. Now the world is in a state of unparralled peace,\nhowever dark forces are vying for control. This is the story of you and your quest to save Terrassa.\n" << endl;
+    cout << "Hundreds of years ago conflict broke out across the continent of Terrassa. Now the world is in a state of unparralled\npeace,however dark forces are vying for control. This is the story of you and your quest to save Terrassa.\n" << endl;
 
     string charName;
     cout << "Please enter your name" << endl;
-    cin >> charName;
+    getline(cin,charName);
     cout << endl;
 
     string charGender; // used by user to choose gender
