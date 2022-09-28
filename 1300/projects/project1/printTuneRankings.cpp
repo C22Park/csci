@@ -24,11 +24,11 @@ bool isValidNote(string note) {
 
 bool isValidTune(string input) {
 
-    bool is_valid = false;
+    bool is_valid = true;
 
     for (int i = 0; i < input.length(); i += 2) {
-        if (isValidNote(input.substr(i, 2)) == true) { // splits input into group of 2s to check if theyre all SPN
-            is_valid = true;
+        if (isValidNote(input.substr(i, 2)) == false) { // splits input into group of 2s to check if theyre all SPN
+            is_valid = false;
         }
     }
 
@@ -38,8 +38,10 @@ bool isValidTune(string input) {
 int numValidNotes(string input) {
 
     int number_of_notes = 0;  // start at 0 notes
-    if (isValidTune(input) == true) { // if the tune is valid then divide the ength of string by two as each note is two characters
-        number_of_notes = input.length() / 2;
+    for (int i = 0; i < input.length(); ++i) {
+        if (isValidNote(input.substr(i,2)) == true) {
+            ++number_of_notes;
+        }
     }
 
     return number_of_notes;
@@ -51,31 +53,31 @@ double tuneSimilarity(string tune1, string tune2) {
     int same_note_same_pitch = 0;
     int dif_note_dif_pitch = 0;
     
-    if (numValidNotes(tune1) == numValidNotes(tune2)) {
+    if (tune1.length() == tune2.length()) {
         for (int i = 0; i < tune1.length(); i += 2) {
-            if (tune1[i] == tune2[i]) {
+            if (tune1[i] == tune2[i]) { // checks to see if same note
                 if (tune1[i + 1] == tune2[i + 1]) {
-                    ++same_note_same_pitch;
+                    ++same_note_same_pitch; // checks to see if same pitch
                 }
                     ++same_note;
             }
-            else if (tune1[i + 1] != tune2[i + 1]) {
+            else if (tune1[i + 1] != tune2[i + 1]) { // if notes different see if pitch is different
                 ++dif_note_dif_pitch;
             }
         }
     }
 
-    similarity = same_note / double(numValidNotes(tune1)) + same_note_same_pitch - dif_note_dif_pitch;
+    similarity = same_note / double(tune1.length()/2) + same_note_same_pitch - dif_note_dif_pitch;
     return similarity;
 }
 
 double bestSimilarity(string input_tune, string target_tune) {
     int max_length = input_tune.length() - target_tune.length();
-    double similarity = tuneSimilarity(target_tune, input_tune.substr(0, target_tune.length()));
+    double similarity = tuneSimilarity(target_tune, input_tune.substr(0, target_tune.length())); // sets similarity to that of the first part of the tune
 
     if (input_tune.length() >= target_tune.length()) {
-        for (int i = 0; i < max_length; i +=2) {
-            if (tuneSimilarity(target_tune, input_tune.substr(i, target_tune.length())) > similarity) {
+        for (int i = 0; i <= max_length; i +=2) {
+            if (tuneSimilarity(target_tune, input_tune.substr(i, target_tune.length())) > similarity) { // if any part of the tune is more similar than first part replace similarity with that one
                 similarity = tuneSimilarity(target_tune, input_tune.substr(i, target_tune.length()));
             }
         }
@@ -85,12 +87,23 @@ double bestSimilarity(string input_tune, string target_tune) {
 }
 
 void printTuneRankings(string tune1, string tune2, string tune3, string target_tune) {
-    double similarity1, similarity2, similarity3;
     string rank1, rank2, rank3;
-    similarity1 = bestSimilarity(tune1, target_tune);
-    similarity2 = bestSimilarity(tune2, target_tune);
-    similarity3 = bestSimilarity(tune3, target_tune);
-    
+    double similarity1 = bestSimilarity(tune1, target_tune);
+    double similarity2 = bestSimilarity(tune2, target_tune);
+    double similarity3 = bestSimilarity(tune3, target_tune);
+    if (tune1.length() < target_tune.length()) {
+        similarity1 = 0;
+        cout << "1" << endl;
+    }
+    if (tune2.length() < target_tune.length()) {
+        similarity2 = 0;
+        cout << "2" << endl;
+    }
+    if (tune3.length() < target_tune.length()) {
+        similarity3 = 0;
+        cout << "3" << endl;
+    }
+
     if (similarity1 >= similarity2 && similarity1 >= similarity3) {
         rank1 = "Tune 1";
         if (similarity2 >= similarity3) {
@@ -115,7 +128,7 @@ void printTuneRankings(string tune1, string tune2, string tune3, string target_t
     }
     else {
         rank1 = "Tune 3";
-        if (similarity1 >= similarity3) {
+        if (similarity1 >= similarity2) {
             rank2 = "Tune 1";
             rank3 = "Tune 2";
         }
@@ -126,7 +139,6 @@ void printTuneRankings(string tune1, string tune2, string tune3, string target_t
     }
 
     cout << "1) " << rank1 << ", 2) " << rank2 << ", 3) " << rank3 << endl;
-    cout << similarity1 << endl << similarity2 << endl << similarity3 << endl;
 }
 
 int main() {

@@ -24,11 +24,11 @@ bool isValidNote(string note) {
 
 bool isValidTune(string input) {
 
-    bool is_valid = false;
+    bool is_valid = true;
 
     for (int i = 0; i < input.length(); i += 2) {
-        if (isValidNote(input.substr(i, 2)) == true) { // splits input into group of 2s to check if theyre all SPN
-            is_valid = true;
+        if (isValidNote(input.substr(i, 2)) == false) { // splits input into group of 2s to check if theyre all SPN
+            is_valid = false;
         }
     }
 

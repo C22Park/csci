@@ -24,11 +24,11 @@ bool isValidNote(string note) {
 
 bool isValidTune(string input) {
 
-    bool is_valid = false;
+    bool is_valid = true;
 
     for (int i = 0; i < input.length(); i += 2) {
-        if (isValidNote(input.substr(i, 2)) == true) { // splits input into group of 2s to check if theyre all SPN
-            is_valid = true;
+        if (isValidNote(input.substr(i, 2)) == false) { // splits input into group of 2s to check if theyre all SPN
+            is_valid = false;
         }
     }
 
@@ -38,8 +38,10 @@ bool isValidTune(string input) {
 int numValidNotes(string input) {
 
     int number_of_notes = 0;  // start at 0 notes
-    if (isValidTune(input) == true) { // if the tune is valid then divide the ength of string by two as each note is two characters
-        number_of_notes = input.length() / 2;
+    for (int i = 0; i < input.length(); ++i) {
+        if (isValidNote(input.substr(i,2)) == true) {
+            ++number_of_notes;
+        }
     }
 
     return number_of_notes;
@@ -51,32 +53,32 @@ double tuneSimilarity(string tune1, string tune2) {
     int same_note_same_pitch = 0;
     int dif_note_dif_pitch = 0;
     
-    if (numValidNotes(tune1) == numValidNotes(tune2)) {
+    if (tune1.length() == tune2.length()) {
         for (int i = 0; i < tune1.length(); i += 2) {
-            if (tune1[i] == tune2[i]) {
+            if (tune1[i] == tune2[i]) { // checks to see if same note
                 if (tune1[i + 1] == tune2[i + 1]) {
-                    ++same_note_same_pitch;
+                    ++same_note_same_pitch; // checks to see if same pitch
                 }
                     ++same_note;
             }
-            else if (tune1[i + 1] != tune2[i + 1]) {
+            else if (tune1[i + 1] != tune2[i + 1]) { // if notes different see if pitch is different
                 ++dif_note_dif_pitch;
             }
         }
     }
 
-    similarity = same_note / double(numValidNotes(tune1)) + same_note_same_pitch - dif_note_dif_pitch;
+    similarity = same_note / double(tune1.length()/2) + same_note_same_pitch - dif_note_dif_pitch;
     return similarity;
 }
 
 double bestSimilarity(string input_tune, string target_tune) {
     int max_length = input_tune.length() - target_tune.length();
-    double similarity = tuneSimilarity(target_tune, input_tune.substr(0, target_tune.length()));
+    double similarity = tuneSimilarity(input_tune.substr(0, target_tune.length()), target_tune); // sets similarity to that of the first part of the tune
 
     if (input_tune.length() >= target_tune.length()) {
-        for (int i = 0; i < max_length; i +=2) {
-            if (tuneSimilarity(target_tune, input_tune.substr(i, target_tune.length())) > similarity) {
-                similarity = tuneSimilarity(target_tune, input_tune.substr(i, target_tune.length()));
+        for (int i = 0; i <= max_length; i +=2) {
+            if (tuneSimilarity(input_tune.substr(i, target_tune.length()), target_tune) > similarity) { // if any part of the tune is more similar than first part replace similarity with that one
+                similarity = tuneSimilarity(input_tune.substr(i, target_tune.length()), target_tune);
             }
         }
     }

@@ -24,11 +24,11 @@ bool isValidNote(string note) {
 
 bool isValidTune(string input) {
 
-    bool is_valid = false;
+    bool is_valid = true;
 
     for (int i = 0; i < input.length(); i += 2) {
-        if (isValidNote(input.substr(i, 2)) == true) { // splits input into group of 2s to check if theyre all SPN
-            is_valid = true;
+        if (isValidNote(input.substr(i, 2)) == false) { // splits input into group of 2s to check if theyre all SPN
+            is_valid = false;
         }
     }
 
@@ -38,8 +38,10 @@ bool isValidTune(string input) {
 int numValidNotes(string input) {
 
     int number_of_notes = 0;  // start at 0 notes
-    if (isValidTune(input) == true) { // if the tune is valid then divide the ength of string by two as each note is two characters
-        number_of_notes = input.length() / 2;
+    for (int i = 0; i < input.length(); ++i) {
+        if (isValidNote(input.substr(i,2)) == true) {
+            ++number_of_notes;
+        }
     }
 
     return number_of_notes;
