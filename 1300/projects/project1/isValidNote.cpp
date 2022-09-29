@@ -1,8 +1,27 @@
+// isValidNote.cpp
+// CSCI 1300 Fall 2022
+// Author: Charlie Park
+// Recitation: 305 - Nikhith Sannidi
+// Project 1 - Problem 1 
+
 #include <iostream>
 #include <string>
 #include <cassert>
 
 using namespace std;
+
+/*
+    Algorithm: Finds whether the input is a valid note in SPN
+    1. Accept note which is passed to function
+    2. Declare string check_note as A0
+    3. Repeat 4-7 until check_note is G9
+    4. Repeat 5-6 until check_note has 9 at the end
+    5. If note is the same as check_note return true for algorithm
+    6. Add one to the number of check_note
+    7. Go up one letter in alphabet for check_note and set the number to 0
+    Parameters: string note
+    Returns: false unless note = check_note at any time
+*/
 
 bool isValidNote(string note) {
 
@@ -23,16 +42,16 @@ bool isValidNote(string note) {
 }
 
 int main() {
-
-    string input;
-    cout << "Enter a note in SPN: " << endl;
-    cin >> input;
-    if (isValidNote(input) == true) {
-        cout << "True" << endl;
-    }
-    else {
-        cout << "False" << endl;
-    }
+    // test 1-3 for valid inputs
+    assert(isValidNote("A0") == true);
+    assert(isValidNote("G6") == true);
+    assert(isValidNote("D4") == true);
+    //test 4 for longer than acceptable length
+    assert(isValidNote("A0C7B5") == false);
+    // test 5 for capitalization
+    assert(isValidNote("c7") == false);
+    // test 6 for capitalization and if the second char is a number
+    assert(isValidNote("gP") == false);
 
     return 0;
 }

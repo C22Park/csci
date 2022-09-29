@@ -1,8 +1,36 @@
+// bestSimilarity.cpp
+// CSCI 1300 Fall 2022
+// Author: Charlie Park
+// Recitation: 305 - Nikhith Sannidi
+// Project 1 - Problem 5
+
 #include <iostream>
 #include <string>
 #include <cassert>
 
 using namespace std;
+
+/**
+ * doublesEqual will test if two doubles are equal to each other within two decimal places.
+ */
+bool doublesEqual(double a, double b, const double epsilon = 1e-2)
+{
+    double c = a - b;
+    return c < epsilon && -c < epsilon;
+}
+
+/*
+    Algorithm: Finds whether the input is a valid note in SPN
+    1. Accept note which is passed to function
+    2. Declare string check_note as A0
+    3. Repeat 4-7 until check_note is G9
+    4. Repeat 5-6 until check_note has 9 at the end
+    5. If note is the same as check_note return true for algorithm
+    6. Add one to the number of check_note
+    7. Go up one letter in alphabet for check_note and set the number to 0
+    Parameters: string note
+    Returns: false unless note = check_note at any time
+*/
 
 bool isValidNote(string note) {
 
@@ -22,6 +50,18 @@ bool isValidNote(string note) {
     return is_valid;
 }
 
+/*
+    Algorithm: Finds whether the input is a valid tune in SPN
+    1. Accept input which is passed to function
+    2. Declare bool is_valid as true
+    3. Declare int i as 0
+    4. For i being less than the length of input repeat 5-6
+    5. set is_valid as false if isValidNote for the substring of input w length two at position i is also false
+    6. Add 2 to i
+    Parameters: string input
+    Returns: is_valid
+*/
+
 bool isValidTune(string input) {
 
     bool is_valid = true;
@@ -35,6 +75,17 @@ bool isValidTune(string input) {
     return is_valid;
 }
 
+/*
+    Algorithm: Finds the number of valid notes from input
+    1. Accept input which is passed on function
+    2. Declare number_of_notes and i both as 0
+    3. For i being less than the length of input repeat 4-5
+    4. If isValidNote of the substring of input w length 2 and starting at i is true add one to number_of_notes
+    5. Add one to i
+    Parameters: string input
+    Returns: number_of_notes
+*/
+
 int numValidNotes(string input) {
 
     int number_of_notes = 0;  // start at 0 notes
@@ -46,6 +97,21 @@ int numValidNotes(string input) {
 
     return number_of_notes;
 }
+
+/*
+    Algorithm: Finds the similarity of two notes
+    1. Accept tune1 and tune2 which is passed on from function
+    2. Declare the double similarity and integers same_note, same_note_same_pitch, dif_note_dif_pitch all as 0
+    3. Declare int i as 0
+    4. For i being less than the length of the tunes repeat 5-8
+    5. If the char of tune1 and tune2 at i is the same add one to same_note
+    6. If the chars of tune1 and tune2 at i and i+1 is the same add one to same_note_same_pitch
+    7. If the chars of tune1 and tune2 at i and i+1 are both different add one to dif_note_dif_pitch
+    8. Add one to i
+    9. Set similarity to (same_note / half the length of a tune) + same_note_same_pitch - dif_note_dif_tune
+    Parameters: string tune1, string tune2
+    Returns: similarity
+*/
 
 double tuneSimilarity(string tune1, string tune2) {
     double similarity = 0;
@@ -71,6 +137,20 @@ double tuneSimilarity(string tune1, string tune2) {
     return similarity;
 }
 
+/*
+    Algorithm: Finds the highest similarity of a target tune to a part of a input tune 
+    1. Accept input_tune and target_tune passed from the function
+    2. Declare integer max_length as the length of input_tune - the length of target_tune
+    3. Declare double similarity and set equal to tuneSimilarity using the substring of input_tune with length of target_tune and target_tune
+    4. If input_tune is longer than or the same length as target_tune move on otherwise return similarity
+    5. Declare int i as 0
+    6. For i < max_length repeat 7-8
+    7. If tuneSimilarity(input_tune.subnstr(i, length of target tune), target_tune) is greater than similarity set this as the new similarity
+    8. Add two to i
+    Parameters: string input_tune, string target_tune
+    Returns: similarity
+*/
+
 double bestSimilarity(string input_tune, string target_tune) {
     int max_length = input_tune.length() - target_tune.length();
     double similarity = tuneSimilarity(input_tune.substr(0, target_tune.length()), target_tune); // sets similarity to that of the first part of the tune
@@ -88,11 +168,15 @@ double bestSimilarity(string input_tune, string target_tune) {
 
 int main() {
 
-    string first_tune, second_tune;
+    // Test 1-3 from github
+    assert(bestSimilarity("A0E2D4E5C1F0", "D4E5C0") == 3);
+    // Test 2 should be zero as the input tune is less than target tune
+    assert(bestSimilarity("A2G7", "E9D2C4F1") == 0);
+    assert(doublesEqual(bestSimilarity("E4D5B7G2E2", "D6G5G2"), .666667));
+    
 
-    cout << "Enter a tune in SPN and another tune to compare to it:" << endl;
-    cin >> first_tune >> second_tune;
-    cout << bestSimilarity(first_tune, second_tune) << endl;
+    
+
 
     return 0;
 }

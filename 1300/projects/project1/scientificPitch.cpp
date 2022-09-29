@@ -1,8 +1,8 @@
-// printTuneRankings.cpp
+// scientificPitch.cpp
 // CSCI 1300 Fall 2022
 // Author: Charlie Park
 // Recitation: 305 - Nikhith Sannidi
-// Project 1 - Problem 6
+// Project 1 - Problem 7
 
 #include <iostream>
 #include <string>
@@ -220,11 +220,86 @@ void printTuneRankings(string tune1, string tune2, string tune3, string target_t
 }
 
 int main() {
+    
+    bool exit_menu = false; // used if user chooses exit to end while loop, closing the menu
+    int input; // used for menu picking
+    string tune1, tune2, tune3, target_tune; // later used in previous functions based on user input
 
-    // Test 1-3 from github
-    printTuneRankings("D3D4", "E3D4", "D3F4", "A7"); // Should be '1) Tune 1, 2) Tune 2, 3) Tune 3'
-    printTuneRankings("C2E7", "D4B3", "A4D1", "A4B7"); // Should be '1) Tune 2, 2) Tune 3, 3) Tune 1'
-    printTuneRankings("F4B2E6", "A1", "B6G2E4", "B7G4"); // Should be '1) Tune 3, 2) Tune 2, 3) Tune 1'
+    while (exit_menu == false) {
+        cout << "--- Menu ---\n" 
+             << "1. Calculate similarity between two tunes.\n" 
+             << "2. Calculate best similarity between two tunes of potentially different lengths.\n"
+             << "3. Print three input tunes in order from most to least similar to the target tune.\n"
+             << "4. Exit\n" 
+             << "Please enter your choice (1-4):" << endl;
+        cin >> input;
+        switch (input) {
+            case 1:
+                cout << "Please enter the first tune:" << endl;
+                cin >> tune1;
+                while (isValidTune(tune1) == false) { // if the last input is not valid SPN display invalid input and have them reenter the string
+                    cout << "Invalid input. Please enter a tune in valid SPN:" << endl;
+                    cin >> tune1;
+                }
+                cout << "Please enter the second tune:" << endl;
+                cin >> tune2;
+                while (isValidTune(tune2) == false) {
+                    cout << "Invalid input. Please enter a tune in valid SPN:" << endl;
+                    cin >> tune2;
+                }
+                cout << "The similarity score is: " << tuneSimilarity(tune1, tune2) << endl;
+                break;
+            case 2:
+                cout << "Please enter the input tune:" << endl;
+                cin >> tune1;
+                while (isValidTune(tune1) == false) {
+                    cout << "Invalid input. Please enter a tune in valid SPN:" << endl;
+                    cin >> tune1;
+                }
+                cout << "Please enter the target tune:" << endl;
+                cin >> target_tune;
+                while (isValidTune(target_tune) == false) {
+                    cout << "Invalid input. Please enter a tune in valid SPN:" << endl;
+                    cin >> target_tune;
+                }
+                cout << "The best similarity score is: " << bestSimilarity(tune1, target_tune) << endl;
+                break;
+            case 3:
+                cout << "Please enter the first tune:" << endl;
+                cin >> tune1;
+                while (isValidTune(tune1) == false) {
+                    cout << "Invalid input. Please enter a tune in valid SPN:" << endl;
+                    cin >> tune1;
+                }
+                cout << "Please enter the second tune:" << endl;
+                cin >> tune2;
+                while (isValidTune(tune2) == false) {
+                    cout << "Invalid input. Please enter a tune in valid SPN:" << endl;
+                    cin >> tune2;
+                }
+                cout << "Please enter the third tune:" << endl;
+                cin >> tune3;
+                while (isValidTune(tune3) == false) {
+                    cout << "Invalid input. Please enter a tune in valid SPN:" << endl;
+                    cin >> tune3;
+                }
+                cout << "Please enter the target tune:" << endl;
+                cin >> target_tune;
+                while (isValidTune(target_tune) == false) {
+                    cout << "Invalid input. Please enter a tune in valid SPN:" << endl;
+                    cin >> target_tune;
+                }
+                printTuneRankings(tune1, tune2, tune3, target_tune);
+                break;
+            case 4:
+                exit_menu = true;
+                cout << "Goodbye!" << endl;
+                break;
+            default: // in the case the user puts a number other than 1-4 in the menu
+                cout << "Invalid input." << endl;
+                break;
+        }
+    }
 
     return 0;
 }
