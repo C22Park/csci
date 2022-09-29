@@ -224,14 +224,15 @@ int main() {
     bool exit_menu = false; // used if user chooses exit to end while loop, closing the menu
     int input; // used for menu picking
     string tune1, tune2, tune3, target_tune; // later used in previous functions based on user input
+    cout << setprecision(2) << fixed; // makes answers output two decimal points
 
     while (exit_menu == false) {
         cout << "--- Menu ---\n" 
              << "1. Calculate similarity between two tunes.\n" 
              << "2. Calculate best similarity between two tunes of potentially different lengths.\n"
              << "3. Print three input tunes in order from most to least similar to the target tune.\n"
-             << "4. Exit\n" 
-             << "Please enter your choice (1-4):" << endl;
+             << "4. Exit.\n" 
+             << "Please enter your choice (1 - 4):" << endl;
         cin >> input;
         switch (input) {
             case 1:
@@ -247,7 +248,7 @@ int main() {
                     cout << "Invalid input. Please enter a tune in valid SPN:" << endl;
                     cin >> tune2;
                 }
-                cout << "The similarity score is: " << tuneSimilarity(tune1, tune2) << endl;
+                cout << "The similarity score is " << tuneSimilarity(tune1, tune2) << endl;
                 break;
             case 2:
                 cout << "Please enter the input tune:" << endl;
@@ -296,7 +297,7 @@ int main() {
                 cout << "Goodbye!" << endl;
                 break;
             default: // in the case the user puts a number other than 1-4 in the menu
-                cout << "Invalid input." << endl;
+                cout << "Invalid Input." << endl;
                 break;
         }
     }
