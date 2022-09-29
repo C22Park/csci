@@ -105,6 +105,7 @@ int numValidNotes(string input) {
 */
 
 double tuneSimilarity(string tune1, string tune2) {
+
     double similarity = 0;
     int same_note = 0;
     int same_note_same_pitch = 0;
@@ -143,11 +144,12 @@ double tuneSimilarity(string tune1, string tune2) {
 */
 
 double bestSimilarity(string input_tune, string target_tune) {
-    int max_length = input_tune.length() - target_tune.length();
+
+    int max_start = input_tune.length() - target_tune.length(); // Finds the max starting point of checking tune similarity without having target tune go past input tune
     double similarity = tuneSimilarity(target_tune, input_tune.substr(0, target_tune.length())); // sets similarity to that of the first part of the tune
 
     if (input_tune.length() >= target_tune.length()) {
-        for (int i = 0; i <= max_length; i +=2) {
+        for (int i = 0; i <= max_start; i +=2) {
             if (tuneSimilarity(target_tune, input_tune.substr(i, target_tune.length())) > similarity) { // if any part of the tune is more similar than first part replace similarity with that one
                 similarity = tuneSimilarity(target_tune, input_tune.substr(i, target_tune.length()));
             }
@@ -177,6 +179,7 @@ double bestSimilarity(string input_tune, string target_tune) {
 */
 
 void printTuneRankings(string tune1, string tune2, string tune3, string target_tune) {
+
     string rank1, rank2, rank3;
     double similarity1 = bestSimilarity(tune1, target_tune); // finds similarity between target and each tune
     double similarity2 = bestSimilarity(tune2, target_tune);
