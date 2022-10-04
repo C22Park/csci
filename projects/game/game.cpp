@@ -180,7 +180,7 @@ int main() {
             }
             break;
         case 3:
-            cout << "\n";
+            cout << "\nEnter your name:\n\n";
             getline(cin, char_name);
             break;
         case 4:
