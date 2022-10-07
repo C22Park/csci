@@ -1,3 +1,9 @@
+// secondPlace.cpp
+// CSCI 1300 Fall 2022
+// Author: Charlie Park
+// Recitation: 305 - Nikhith Sannidi
+// Homework 5 - Problem 3b 
+
 #include <iostream>
 #include <cassert>
 
