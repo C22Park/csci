@@ -1,3 +1,9 @@
+// computeScore.cpp
+// CSCI 1300 Fall 2022
+// Author: Charlie Park
+// Recitation: 305 - Nikhith Sannidi
+// Homework 6 - Problem 4b 
+
 #include <iostream>
 #include <fstream>
 #include <string>
