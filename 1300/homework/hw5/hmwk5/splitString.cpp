@@ -8,28 +8,30 @@
 
 using namespace std;
 
-int split(string input_string, char separator, string arr[], int arr_size) {
+int split(string input_string, char separator, string arr[], int arr_size)
+ {
 
-    if (input_string == "") { // when empty return 0
+    if (input_string == "")
+    {
         return 0;
     }
 
     int num_elements = 0;
-    int start = 0;
-
-        for (int i = 0; i < input_string.length(); i++) {
-            if (num_elements + 1 < arr_size) { // as long as the number of elements is less than the size of array put part of string up to seperater into a spot in array
-                if (input_string[i] == separator) {
-                    arr[num_elements] = input_string.substr(start, i - start);
-                    start = i + 1;
-                    num_elements++;
-                }
-                } else if (input_string[i] == separator) { // when the array is smaller than the number of elements puit in the last one you can and return -1
-                    arr[num_elements] = input_string.substr(start, i - start);
-                    return -1;
-                }
+    
+    for (int i = 0; i < input_string.length(); i++)
+    {
+        if (input_string[i] == separator && num_elements >= arr_size) 
+        {
+            return -1;
+        } else if (input_string[i] == separator)
+        {
+            num_elements++;
+        } else
+        {
+            arr[num_elements] += input_string[i];
         }
-    arr[num_elements] = input_string.substr(start, input_string.length() - start); // the final element gets put in from the last seperator to the end of string
+    }
+        
     num_elements++;
 
     return num_elements;
