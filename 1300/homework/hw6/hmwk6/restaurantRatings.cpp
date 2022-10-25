@@ -71,6 +71,7 @@ int readRestaurantData(string file_name, string restaurants[], int ratings[][3],
     return num_restaurants;
 }
 
+
 int main() 
 {
     string filename = "restaurant_samples.txt";
