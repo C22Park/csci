@@ -1,7 +1,20 @@
+// CSCI 1300 Fall 2022
+// Author: Charlie Park
+// Recitation: 305 - Nikhith Sannidi
+// Project 2 - Problem 7 - findTagUserDriver.cpp
+
 #include "User.cpp"
 #include <iostream>
 
 using namespace std;
+
+/*
+    Algorithm:
+    1. if # of users currently stored is <= 0 return "No users are stored in the datatbase"
+    2. compare each username in users to see if username_tag is a part of that username and sav the username to a temp array
+    3. print out "Here are all usernames taht contain " username_tag
+    4. then print out all the usernames which contain that tag
+*/
 
 void findTagUser(string username_tag, User users[], int num_users_stored)
 {

@@ -1,7 +1,19 @@
+// CSCI 1300 Fall 2022
+// Author: Charlie Park
+// Recitation: 305 - Nikhith Sannidi
+// Project 2 - Problem 6 - getLikesDriver.cpp
+
 #include "Post.cpp"
 #include "User.cpp"
 
 using namespace std;
+
+/*
+    Algorithm:
+    1. if # of current posts or users stored is <= 0 return -2
+    2. if you cant find desired username or post_author in their respective arrays return -3
+    3. return the amount of likes username has at the post_id corresponding to the first appearence of post_author
+*/
 
 int getLikes (string post_author, Post posts[], int num_posts_stored, string username, User users[], int num_users_stored)
 {
