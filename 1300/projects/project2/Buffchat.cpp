@@ -4,6 +4,8 @@
 // Project 2 Part 2 - Problem 1 - Buffchat.cpp
 
 #include <iostream>
+#include <fstream>
+#include "../../split.cpp"
 #include "Buffchat.h"
 
 using namespace std;
