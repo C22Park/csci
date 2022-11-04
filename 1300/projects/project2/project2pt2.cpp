@@ -309,7 +309,7 @@ bool Buffchat::addPost(string post_body, string post_author, string date)
     1. if posts database is empty return "No posts are stored"
     2. add every post with matching year to an array of posts
     3. if the number of posts in that array is < count return "There are fewer than count posts for year year. Top (number of posts in array) posts for year year" and the posts in the array
-    4. if the number of posts in teh array is 0 return "No posts are stored for year year"
+    4. if the number of posts in the array is 0 return "No posts are stored for year year"
     5. if the number of posts in that array is >= count remove the lowest liked posts in the array until you have count left
     6. return "Top count posts for year year" and the posts in the array
 */
