@@ -15,37 +15,37 @@ using namespace std;
 void activeCheats(bool active_cheats[6])
 {
     cout << "Cheats:\n"
-                            << "1. I can see my house from here";
-                        if (active_cheats[0]) 
-                        {
-                            cout << " [ACTIVE]";
-                        }
-                        cout << "\n2. Scrooge McDuck";
-                        if (active_cheats[1]) 
-                        {
-                            cout << " [ACTIVE]";
-                        }
-                        cout << "\n3. 501st";
-                        if (active_cheats[2]) 
-                        {
-                            cout << " [ACTIVE]";
-                        }
-                        cout << "\n4. Super Soldiers";
-                        if (active_cheats[3]) 
-                        {
-                            cout << " [ACTIVE]";
-                        }
-                        cout << "\n5. Zerg Rush";
-                        if (active_cheats[4]) 
-                        {
-                            cout << " [ACTIVE]";
-                        }
-                        cout << "\n6. Cornucopia";
-                        if (active_cheats[5]) 
-                        {
-                            cout << " [ACTIVE]";
-                        }
-                        cout << "\n";
+        << "1. I can see my house from here";
+    if (active_cheats[0]) 
+    {
+        cout << " [ACTIVE]";
+    }
+    cout << "\n2. Scrooge McDuck";
+    if (active_cheats[1]) 
+    {
+        cout << " [ACTIVE]";
+    }
+    cout << "\n3. 501st";
+    if (active_cheats[2]) 
+    {
+        cout << " [ACTIVE]";
+    }
+    cout << "\n4. Super Soldiers";
+    if (active_cheats[3]) 
+    {
+        cout << " [ACTIVE]";
+    }
+    cout << "\n5. Zerg Rush";
+    if (active_cheats[4]) 
+    {
+        cout << " [ACTIVE]";
+    }
+    cout << "\n6. Cornucopia";
+    if (active_cheats[5]) 
+    {
+        cout << " [ACTIVE]";
+    }
+    cout << "\n";
 }
 
 int fightEnemy(Map map[1])
@@ -59,23 +59,34 @@ int fightEnemy(Map map[1])
             difference = map[0].player_army.getArmyStrength() - map[0].enemy_armies[i].getArmyStrength();
             if (difference < 0)
             {
-                cout << "You run into " << map[0].enemy_armies[i].getArmySize() << " enemies and lose " << -difference << " soldiers.\n"
-                    << "Press enter to continue\n";
-                getline(cin, input);
+                if (difference > map[0].player_army.getArmySize())
+                {
+                    cout << "You run into " << map[0].enemy_armies[i].getArmySize() << " enemies and lose " << map[0].player_army.getArmySize() << " soldiers.\n"
+                        << "Press enter to continue\n";
+                    getline(cin, input);
+                } else
+                {
+                    cout << "You run into " << map[0].enemy_armies[i].getArmySize() << " enemies and lose " << -difference << " soldiers.\n"
+                        << "Press enter to continue\n";
+                    getline(cin, input);
+                }
                 map[0].player_army.setArmySize(map[0].player_army.getArmySize() + difference);
                 return 0;
             } else if (difference > 0)
             {
-                cout << "You run into " << map[0].enemy_armies[i].getArmySize() << " enemies and kill " << difference << " soldiers.\n"
-                    << "Press enter to continue\n";
-                getline(cin, input);
                 map[0].enemy_armies[i].setArmySize(map[0].enemy_armies[i].getArmySize() - difference);
                 if (map[0].enemy_armies[i].getArmySize() <= 0)
                 {
+                    cout << "You run into " << map[0].enemy_armies[i].getArmySize() << " enemies and kill " << map[0].enemy_armies[i].getArmySize() << " soldiers.\n"
+                    << "Press enter to continue\n";
+                    getline(cin, input);
                     map[0].player_army.setGold(map[0].player_army.getGold() + map[0].enemy_armies[i].getGold());
                     map[0].enemy_armies.erase(map[0].enemy_armies.begin() + i);
                 } else
                 {
+                    cout << "You run into " << map[0].enemy_armies[i].getArmySize() << " enemies and kill " << difference << " soldiers.\n"
+                    << "Press enter to continue\n";
+                    getline(cin, input);
                     map[0].player_army.setGold(map[0].player_army.getGold() + difference);
                     map[0].enemy_armies[i].setGold(map[0].enemy_armies[i].getGold() - difference);
                 }
@@ -110,12 +121,29 @@ string gameMenu(string username, Map map[1], int enemy_spawn_rate, int resource_
     }
 
     cout << username << "'s Kingdom | " << map[0].player_army.getGold() << " Gold | " << "day " << (day % 20) + 1 << " of the year " << day / 20 << "\n"
-         << map[0].player_army.getArmySize() << " Soldiers | " << map[0].player_army.getArmyStrength() << " Strength | Position: " << map[0].player_army.getRow() << ", " << map[0].player_army.getCol() << "\n"
-         << "Use w/a/s/d to move | Commands: ";
+         << map[0].player_army.getArmySize() << " Soldiers | " << map[0].player_army.getArmyStrength() << " Strength | Position: " << map[0].player_army.getRow() << ", " << map[0].player_army.getCol() << " ";
+    for (int i = 0; i < map[0].resources.size(); i++)
+    {
+        if (map[0].resources[i].isPosition(map[0].player_army.getRow(), map[0].player_army.getCol()))
+        {
+            cout << map[0].resources.getName();
+        }
+    }
+    for (int i = 0; i < map[0].buildings.size(); i++)
+    {
+        if (map[0].buildings[i].isPosition(map[0].player_army.getRow(), map[0].player_army.getCol()))
+        {
+            cout << map[0].buildings.getName();
+        }
+    }
+    cout << "Use w/a/s/d to move | Commands: ";
     string temp_string;
     if (map[0].trueSpace(row, col) == map[0].RESOURCE || map[0].trueSpace(row, col) == map[0].BUILDING)
     {
         cout << "investigate | ";
+    } else if (map[0].trueSpace(row, col) == map[0].EXPLORED)
+    {
+        cout << "build | ";
     }
     cout << "options\n";
     getline(cin, input);
@@ -188,6 +216,15 @@ string gameMenu(string username, Map map[1], int enemy_spawn_rate, int resource_
             getline(cin, input);
             input = "";    
         }
+    } else if (input == "build")
+    {
+        if (map[0].trueSpace(row, col) != map[0].EXPLORED)
+        {
+            cout << "Invalid Input\n"
+                << "Press enter to continue\n";
+            getline(cin, input);
+            input = "";    
+        }
     } else
     {
         cout << "Invalid Input\n"
@@ -235,25 +272,25 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
             resource = randomNum(1, 11);
             if (game[0].trueSpace(row, col) == ' ')
             {
-                if (resource >= 1 && resource <= 4)
+                if (resource >= 1 && resource <= 5)
                 {
                     file.open("Resources/Boulder.txt");
                     getline(file, input);
                     split(input, ',', temp_arr, 3);
                     file.close();
-                } else if (resource >= 5 && resource <= 7)
+                } else if (resource >= 6 && resource <= 8)
                 {
                     file.open("Resources/Forest.txt");
                     getline(file, input);
                     split(input, ',', temp_arr, 3);
                     file.close();
-                } else if (resource >= 7 && resource <= 8)
+                } else if (resource >= 8 && resource <= 9)
                 {
                     file.open("Resources/Chest.txt");
                     getline(file, input);
                     split(input, ',', temp_arr, 3);
                     file.close();
-                } else if (resource >= 9 && resource <= 10)
+                } else if (resource == 10)
                 {
                     file.open("Resources/Ransacked_Village.txt");
                     getline(file, input);
@@ -374,6 +411,70 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
                     }
                 }
             }
+            for (int i = 0; i < game[0].buildings.size(); i++)
+            {
+                if (game[0].buildings[i].isPosition(game[0].player_army.getRow(), game[0].player_army.getCol()))
+                {
+                    cout << game[0].buildings[i].getName() << ";\n"
+                         << game[0].buildings[i].getBuildingDescription() << "\n";
+                    if (game[0].buildings[i].getName() == "Barracks")
+                    {
+                        cout << game[0].buildings[i].getReserve() << " soldiers picked up\n"
+                             << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                        game[0].player_army.setArmySize(game[0].player_army.getArmySize() + game[0].buildings[i].getReserve());
+                        game[0].buildings[i].setReserve(0);
+                    } else if (game[0].buildings[i].getName() == "Gold Mine")
+                    {
+                        cout << game[0].buildings[i].getReserve() << " gold picked up\n"
+                             << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                        game[0].player_army.setGold(game[0].player_army.getGold() + game[0].buildings[i].getReserve());
+                        game[0].buildings[i].setReserve(0);
+                    } else if (game[0].buildings[i].getName() == "Blacksmith")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                    }
+                }
+            }
+        } else if (input == "build")
+        {
+            while (input == "build")
+            {
+                system("clear");
+                cout << "Gold: " << game[0].player_army.getGold() << "\n"
+                     << "Buildings:\n"
+                     << "1. Barracks 25g (Makes one soldier per day)\n"
+                     << "2. Gold Mine 50g (Makes 5 gold per day)\n"
+                     << "3. Blacksmith 100g (Increases strength by .1x per year)\n"
+                     << "4. Exit\n";
+                getline(cin, input);
+                if (input == "1" && game[0].player_army.getGold() >= 25)
+                {
+                    game[0].buildings.push_back(Building("Barracks", "Makes one soldier per day", game[0].player_army.getRow(), game[0].player_army.getCol()));
+                    game[0].player_army.setGold(game[0].player_army.getGold() - 25);
+                } else if (input == "2" && game[0].player_army.getGold() >= 50)
+                {
+                    game[0].buildings.push_back(Building("Gold Mine", "Makes one gold per day", game[0].player_army.getRow(), game[0].player_army.getCol()));
+                    game[0].player_army.setGold(game[0].player_army.getGold() - 50);
+                } else if (input == "3" && game[0].player_army.getGold() >= 100)
+                {
+                    game[0].buildings.push_back(Building("Blacksmith", "Increses strength by .1x per year", game[0].player_army.getRow(), game[0].player_army.getCol()));
+                    game[0].player_army.setGold(game[0].player_army.getGold() - 100);
+                } else if (input == "4")
+                {} else
+                {
+                    system("clear");
+                    cout << "Invalid Input\n"
+                         << "Press enter to continue\n";
+                    getline(cin, input);
+                    input = "build";    
+                }
+            }
         }
         if (didMove)
         {
@@ -390,6 +491,19 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
                     << "Press enter to continue\n";
                 getline(cin, input);
                 input = "exit";
+            }
+            for (int i = 0; i < game[0].buildings.size(); i++)
+            {
+                if (game[0].buildings[i].getName() == "Barracks")
+                {
+                    game[0].buildings[i].setReserve(game[0].buildings[i].getReserve() + 1);
+                } else if (game[0].buildings[i].getName() == "Gold Mine")
+                {
+                    game[0].buildings[i].setReserve(game[0].buildings[i].getReserve() + 5);
+                } else if (game[0].buildings[i].getName() == "Blacksmith" && day % 20 == 0)
+                {
+                    game[0].player_army.setStrengthMultiplier(game[0].player_army.getStrengthMultiplier() + .1);
+                }
             }
             if (day % 20 == 0)
             {
@@ -473,7 +587,7 @@ int main()
 {
     system("clear");
     Map game;
-    game.player_army.setGold(400);
+    game.player_army.setGold(1000);
     game.player_army.setArmySize(10);
     int enemy_spawn_rate = 1;
     int resource_spawn_rate = 15;
@@ -552,27 +666,27 @@ int main()
                     {
                         system("clear");
                         cout << "Difficulties:\n"
-                             << "1. Easy (400 gold, 10 soldiers, 1 enemies per year per year, 15 resources per year)\n"
-                             << "2. Medium (100 gold, 5 soldiers, 2 enemies per year per year, 10 resources per year)\n"
-                             << "3. Hard (20 gold, 1 soldier, 3 enemies per year per year, 1 resource per year)\n";
+                             << "1. Easy (1000 gold, 10 soldiers, 1 enemies per year per year, 15 resources per year)\n"
+                             << "2. Medium (500 gold, 5 soldiers, 2 enemies per year per year, 10 resources per year)\n"
+                             << "3. Hard (100 gold, 1 soldier, 3 enemies per year per year, 1 resource per year)\n";
                         getline(cin, input);
                         system("clear");
                         if (input == "1")
                         {
-                            game.player_army.setGold(400);
+                            game.player_army.setGold(1000);
                             game.player_army.setArmySize(10);
                             enemy_spawn_rate = 1;
                             resource_spawn_rate = 15;
                             input = "0";
                         } else if (input == "2")
                         {
-                            game.player_army.setGold(100);
+                            game.player_army.setGold(500);
                             game.player_army.setArmySize(5);
                             enemy_spawn_rate = 2;
                             resource_spawn_rate = 10;
                         } else if (input == "3")
                         {
-                            game.player_army.setGold(20);
+                            game.player_army.setGold(100);
                             game.player_army.setArmySize(1);
                             enemy_spawn_rate = 3;
                             resource_spawn_rate = 5;

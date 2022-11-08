@@ -7,6 +7,7 @@ class Building: public MapObject
 {
     private:
         string building_description_;
+        int reserve_;
 
     public:
         Building();
@@ -14,6 +15,9 @@ class Building: public MapObject
 
         void setBuildingDescription(string building_description);
         string getBuildingDescription();
+
+        void setReserve(int reserve);
+        int getReserve();
 };
 
 #endif
