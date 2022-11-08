@@ -1,1 +1,0 @@
-"Chest","A creaky old chest",25

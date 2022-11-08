@@ -1,1 +1,3 @@
 USERNAME | ARMY SIZE | DAYS LASTED
+Charlie | 20 | 57
+s | 10 | 55
