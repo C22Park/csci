@@ -1,2 +1,10 @@
 USERNAME | ARMY SIZE | DAYS LASTED
-Charlie Park | 18 | 30
+Zerg | 54 | 46
+f | 10 | 25
+bluh | 14 | 30
+f | 22 | 32
+f | 10 | 2
+d | 12 | 62
+d | 11 | 93
+d | 11 | 47
+c | 11 | 50

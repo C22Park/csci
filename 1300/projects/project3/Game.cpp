@@ -1,7 +1,16 @@
 /* To Do:
-    1. Building Construction
-    2. Building Files
-    3. Combat
+    1. Combat from current location
+    2. Fix how to play
+    3. Display current reserve in buildings while on map (Position marker and map showing values of squares if hotkey pressed)
+    4. balance resources
+    5. implement crafting
+        -materials from fights or resources
+        -You can only "craft" by upgrading a building to a second tier form
+            -Barracks -(2 Stone 2 Wood)-> Military Acadamy | 2 soldier per year .1x strength per year
+            -Barracks -(2 Food 1 Wood)-> Conquering Party | 1 soldier per year 100 gold per year
+            -Gold Mine -(2 Wood)-> Market | 5 gold per turn
+            -Blacksmith -(2 stone 5 soldier)-> Sweatshop | .3x strength per year -25 gold per year
+    6. New cheats!!
 */
 
 #include "Classes/Map.cpp"
@@ -74,8 +83,7 @@ int fightEnemy(Map map[1])
                 return 0;
             } else if (difference > 0)
             {
-                map[0].enemy_armies[i].setArmySize(map[0].enemy_armies[i].getArmySize() - difference);
-                if (map[0].enemy_armies[i].getArmySize() <= 0)
+                if (difference > map[0].enemy_armies[i].getArmySize())
                 {
                     cout << "You run into " << map[0].enemy_armies[i].getArmySize() << " enemies and kill " << map[0].enemy_armies[i].getArmySize() << " soldiers.\n"
                     << "Press enter to continue\n";
@@ -87,8 +95,8 @@ int fightEnemy(Map map[1])
                     cout << "You run into " << map[0].enemy_armies[i].getArmySize() << " enemies and kill " << difference << " soldiers.\n"
                     << "Press enter to continue\n";
                     getline(cin, input);
-                    map[0].player_army.setGold(map[0].player_army.getGold() + difference);
-                    map[0].enemy_armies[i].setGold(map[0].enemy_armies[i].getGold() - difference);
+                    map[0].player_army.setGold(map[0].player_army.getGold() - difference);  
+                    map[0].enemy_armies[i].setArmySize(map[0].enemy_armies[i].getArmySize() - difference);
                 }
                 return difference;
             } else
@@ -126,17 +134,17 @@ string gameMenu(string username, Map map[1], int enemy_spawn_rate, int resource_
     {
         if (map[0].resources[i].isPosition(map[0].player_army.getRow(), map[0].player_army.getCol()))
         {
-            cout << map[0].resources.getName();
+            cout << map[0].resources[i].getName();
         }
     }
     for (int i = 0; i < map[0].buildings.size(); i++)
     {
         if (map[0].buildings[i].isPosition(map[0].player_army.getRow(), map[0].player_army.getCol()))
         {
-            cout << map[0].buildings.getName();
+            cout << map[0].buildings[i].getName();
         }
     }
-    cout << "Use w/a/s/d to move | Commands: ";
+    cout << "\nUse w/a/s/d to move | Commands: ";
     string temp_string;
     if (map[0].trueSpace(row, col) == map[0].RESOURCE || map[0].trueSpace(row, col) == map[0].BUILDING)
     {
@@ -269,7 +277,7 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
         {
             row = randomNum(0, game[0].getNumRows() - 1);
             col = randomNum(0, game[0].getNumCols() - 1);
-            resource = randomNum(1, 11);
+            resource = randomNum(1, 12);
             if (game[0].trueSpace(row, col) == ' ')
             {
                 if (resource >= 1 && resource <= 5)
@@ -296,12 +304,18 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
                     getline(file, input);
                     split(input, ',', temp_arr, 3);
                     file.close();
-                } else 
+                } else if (resource == 11)
                 {
                     file.open("Resources/Ancient_Temple.txt");
                     getline(file, input);
                     split(input, ',', temp_arr, 3);
                     file.close();
+                } else
+                {
+                    file.open("Resources/Dragons_Hoard.txt");
+                            getline(file, input);
+                            split(input, ',', temp_arr, 3);
+                            file.close();
                 }
                 game[0].resources.push_back(Resource(temp_arr[0], temp_arr[1], stoi(temp_arr[2]), row, col));
                 successfully_placed = true;
@@ -395,11 +409,11 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
                         game[0].resources.erase(game[0].resources.begin() + i);
                     } else if (game[0].resources[i].getName() == "Ransacked Village")
                     {
-                        cout << "You gain 5 soldiers.\n"
+                        cout << "You gain 2 soldiers.\n"
                             << "Press enter to continue\n";
                         getline(cin, input);
                         input = "investigate";
-                        game[0].player_army.setArmySize(game[0].player_army.getArmySize() + 5);
+                        game[0].player_army.setArmySize(game[0].player_army.getArmySize() + 2);
                         game[0].resources.erase(game[0].resources.begin() + i);
                     } else if (game[0].resources[i].getName() == "Ancient Temple")
                     {
@@ -407,6 +421,14 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
                         getline(cin, input);
                         input = "investigate";
                         game[0].player_army.setStrengthMultiplier(game[0].player_army.getStrengthMultiplier() + .1);
+                        game[0].resources.erase(game[0].resources.begin() + i);   
+                    } else if (game[0].resources[i].getName() == "Dragon's Hoard")
+                    {
+                        cout << "You collect " << game[0].resources[i].getReward() << " gold.\n"
+                             << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                        game[0].player_army.setGold(game[0].player_army.getGold() + game[0].resources[i].getReward());
                         game[0].resources.erase(game[0].resources.begin() + i);   
                     }
                 }
@@ -448,23 +470,23 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
                 system("clear");
                 cout << "Gold: " << game[0].player_army.getGold() << "\n"
                      << "Buildings:\n"
-                     << "1. Barracks 25g (Makes one soldier per day)\n"
-                     << "2. Gold Mine 50g (Makes 5 gold per day)\n"
-                     << "3. Blacksmith 100g (Increases strength by .1x per year)\n"
+                     << "1. Barracks 20g (Makes one soldier per year)\n"
+                     << "2. Gold Mine 50g (Makes 3 gold per day)\n"
+                     << "3. Blacksmith 75g (Increases strength by .1x per year)\n"
                      << "4. Exit\n";
                 getline(cin, input);
-                if (input == "1" && game[0].player_army.getGold() >= 25)
+                if (input == "1" && game[0].player_army.getGold() >= 20)
                 {
-                    game[0].buildings.push_back(Building("Barracks", "Makes one soldier per day", game[0].player_army.getRow(), game[0].player_army.getCol()));
-                    game[0].player_army.setGold(game[0].player_army.getGold() - 25);
+                    game[0].buildings.push_back(Building("Barracks", "Makes one soldier per year", game[0].player_army.getRow(), game[0].player_army.getCol()));
+                    game[0].player_army.setGold(game[0].player_army.getGold() - 20);
                 } else if (input == "2" && game[0].player_army.getGold() >= 50)
                 {
-                    game[0].buildings.push_back(Building("Gold Mine", "Makes one gold per day", game[0].player_army.getRow(), game[0].player_army.getCol()));
+                    game[0].buildings.push_back(Building("Gold Mine", "Makes 3 gold per day", game[0].player_army.getRow(), game[0].player_army.getCol()));
                     game[0].player_army.setGold(game[0].player_army.getGold() - 50);
-                } else if (input == "3" && game[0].player_army.getGold() >= 100)
+                } else if (input == "3" && game[0].player_army.getGold() >= 75)
                 {
                     game[0].buildings.push_back(Building("Blacksmith", "Increses strength by .1x per year", game[0].player_army.getRow(), game[0].player_army.getCol()));
-                    game[0].player_army.setGold(game[0].player_army.getGold() - 100);
+                    game[0].player_army.setGold(game[0].player_army.getGold() - 75);
                 } else if (input == "4")
                 {} else
                 {
@@ -481,7 +503,10 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
             didMove = false;
             day++;
             year = day / 20;
-            game[0].player_army.setGold(game[0].player_army.getGold() - game[0].player_army.getArmySize());
+            if (day % 2 == 0)
+            {
+                game[0].player_army.setGold(game[0].player_army.getGold() - game[0].player_army.getArmySize());
+            }
             if (game[0].player_army.getGold() <= 0 || game[0].player_army.getArmySize() <= 0)
             {
                 system("clear");
@@ -494,12 +519,12 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
             }
             for (int i = 0; i < game[0].buildings.size(); i++)
             {
-                if (game[0].buildings[i].getName() == "Barracks")
+                if (game[0].buildings[i].getName() == "Barracks" && day % 20 == 0)
                 {
                     game[0].buildings[i].setReserve(game[0].buildings[i].getReserve() + 1);
                 } else if (game[0].buildings[i].getName() == "Gold Mine")
                 {
-                    game[0].buildings[i].setReserve(game[0].buildings[i].getReserve() + 5);
+                    game[0].buildings[i].setReserve(game[0].buildings[i].getReserve() + 3);
                 } else if (game[0].buildings[i].getName() == "Blacksmith" && day % 20 == 0)
                 {
                     game[0].player_army.setStrengthMultiplier(game[0].player_army.getStrengthMultiplier() + .1);
@@ -513,7 +538,7 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
                     col = randomNum(0, game[0].getNumCols() - 1);
                     if (game[0].trueSpace(row, col) == game[0].EXPLORED)
                     {
-                        game[0].enemy_armies.push_back(Army("Enemy", 10 * year, 1 + (year / 10), 20 * year,row,col));
+                        game[0].enemy_armies.push_back(Army("Enemy", 5 * (year + 1), 1 + (year / 10), 10 * (year + 1),row,col));
                         if (game[0].isExplored(row, col))
                         {
                             game[0].setMap(row, col);
@@ -524,9 +549,9 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
                         {
                             if (game[0].enemy_armies[j].isPosition(row, col))
                             {
-                                game[0].enemy_armies[j].setArmySize(game[0].enemy_armies[j].getArmySize() + (5 * year));
+                                game[0].enemy_armies[j].setArmySize(game[0].enemy_armies[j].getArmySize() + (5 * (year + 1)));
                                 game[0].enemy_armies[j].setStrengthMultiplier(1 + (year / 10));
-                                game[0].enemy_armies[j].setGold(game[0].enemy_armies[j].getGold() + 10 * year);
+                                game[0].enemy_armies[j].setGold(game[0].enemy_armies[j].getGold() + 10 * (year + 1));
                             }
                         }
                     }
@@ -535,39 +560,45 @@ void playGame(string username, Map map, int enemy_spawn_rate, int resource_spawn
                 {
                     row = randomNum(0, game[0].getNumRows() - 1);
                     col = randomNum(0, game[0].getNumCols() - 1);
-                    resource = randomNum(1, 11);
-                    if (game[0].trueSpace(row, col) == game[0].EXPLORED)
+                    resource = randomNum(1, 12);
+                    if (game[0].trueSpace(row, col) == ' ')
                     {
-                        if (resource >= 1 && resource <= 4)
+                        if (resource >= 1 && resource <= 5)
                         {
                             file.open("Resources/Boulder.txt");
                             getline(file, input);
                             split(input, ',', temp_arr, 3);
                             file.close();
-                        } else if (resource >= 5 && resource <= 7)
+                        } else if (resource >= 6 && resource <= 8)
                         {
                             file.open("Resources/Forest.txt");
                             getline(file, input);
                             split(input, ',', temp_arr, 3);
                             file.close();
-                        } else if (resource >= 7 && resource <= 8)
+                        } else if (resource >= 8 && resource <= 9)
                         {
                             file.open("Resources/Chest.txt");
                             getline(file, input);
                             split(input, ',', temp_arr, 3);
                             file.close();
-                        } else if (resource >= 9 && resource <= 10)
+                        } else if (resource == 10)
                         {
                             file.open("Resources/Ransacked_Village.txt");
                             getline(file, input);
                             split(input, ',', temp_arr, 3);
                             file.close();
-                        } else 
+                        } else if (resource == 11)
                         {
                             file.open("Resources/Ancient_Temple.txt");
                             getline(file, input);
                             split(input, ',', temp_arr, 3);
                             file.close();
+                        } else
+                        {
+                            file.open("Resources/Dragons_Hoard.txt");
+                                    getline(file, input);
+                                    split(input, ',', temp_arr, 3);
+                                    file.close();
                         }
                         game[0].resources.push_back(Resource(temp_arr[0], temp_arr[1], stoi(temp_arr[2]), row, col));
                         if (game[0].isExplored(row, col))
@@ -587,7 +618,7 @@ int main()
 {
     system("clear");
     Map game;
-    game.player_army.setGold(1000);
+    game.player_army.setGold(500);
     game.player_army.setArmySize(10);
     int enemy_spawn_rate = 1;
     int resource_spawn_rate = 15;
@@ -666,27 +697,27 @@ int main()
                     {
                         system("clear");
                         cout << "Difficulties:\n"
-                             << "1. Easy (1000 gold, 10 soldiers, 1 enemies per year per year, 15 resources per year)\n"
-                             << "2. Medium (500 gold, 5 soldiers, 2 enemies per year per year, 10 resources per year)\n"
-                             << "3. Hard (100 gold, 1 soldier, 3 enemies per year per year, 1 resource per year)\n";
+                             << "1. Easy (500 gold, 10 soldiers, 1 enemies per year per year, 15 resources per year)\n"
+                             << "2. Medium (250 gold, 5 soldiers, 2 enemies per year per year, 10 resources per year)\n"
+                             << "3. Hard (50 gold, 1 soldier, 3 enemies per year per year, 1 resource per year)\n";
                         getline(cin, input);
                         system("clear");
                         if (input == "1")
                         {
-                            game.player_army.setGold(1000);
+                            game.player_army.setGold(500);
                             game.player_army.setArmySize(10);
                             enemy_spawn_rate = 1;
                             resource_spawn_rate = 15;
                             input = "0";
                         } else if (input == "2")
                         {
-                            game.player_army.setGold(500);
+                            game.player_army.setGold(250);
                             game.player_army.setArmySize(5);
                             enemy_spawn_rate = 2;
                             resource_spawn_rate = 10;
                         } else if (input == "3")
                         {
-                            game.player_army.setGold(100);
+                            game.player_army.setGold(50);
                             game.player_army.setArmySize(1);
                             enemy_spawn_rate = 3;
                             resource_spawn_rate = 5;
