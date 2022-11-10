@@ -1,1 +1,1 @@
-Boulder,A large source of stone,10
+Boulder,A large source of stone,5

@@ -11,8 +11,15 @@ Map::Map()
             map_data_[row][col] = UNEXPLORED;
         }
     }
-    map_data_[0][0] = PLAYER_ARMY;
-    player_army = Army("Player", 10, 1, 100, 0, 0);
+    for (int row = 6; row <= 8; row++)
+    {
+        for (int col = 6; col <= 8; col++)
+        {
+            map_data_[row][col] = EXPLORED;
+        }
+    }
+    map_data_[7][7] = PLAYER_ARMY;
+    player_army = Army("Player", 10, 1, 100, 7, 7);
 }
 
 // getters
@@ -81,14 +88,29 @@ char Map::trueSpace(int row, int col)
 // other
 void Map::displayMap()
 {
+    cout << " ";
     for (int row = 0; row < num_rows_; row++)
     {
+        cout << "__";
+    }
+    cout << "_\n";
+
+    for (int row = 0; row < num_rows_; row++)
+    {
+        cout << "| ";
         for (int col = 0; col < num_cols_; col++)
         {
-            cout << map_data_[row][col];
+            cout << map_data_[row][col] << " ";
         }
-        cout << "\n";
+        cout << "|\n";
     }
+
+    cout << " ";
+    for (int row = 0; row < num_rows_; row++)
+    {
+        cout << "‾‾";
+    }
+    cout << "‾\n";
 }
 void Map::setMap(int row, int col)
 {

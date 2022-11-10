@@ -1,10 +1,4 @@
-USERNAME | ARMY SIZE | DAYS LASTED
-Zerg | 54 | 46
-f | 10 | 25
-bluh | 14 | 30
-f | 22 | 32
-f | 10 | 2
-d | 12 | 62
-d | 11 | 93
-d | 11 | 47
-c | 11 | 50
+USERNAME | ARMY SIZE | DAYS LASTED | DIFFICULTY
+Charlie | 18 | 81 | EASY
+f | 10 | 1 | EASY
+c | 10 | 257 | EASY

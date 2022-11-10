@@ -7,17 +7,17 @@ class Building: public MapObject
 {
     private:
         string building_description_;
-        int reserve_;
+        int reserve_; // amount of product in building ready to be collected
 
     public:
-        Building();
-        Building(string name, string building_description, int row, int col);
+        Building(); // default constructor
+        Building(string name, string building_description, int row, int col); // paramaterized constructor
 
-        void setBuildingDescription(string building_description);
-        string getBuildingDescription();
+        void setBuildingDescription(string building_description); // sets resource_description_ to resource_description
+        string getBuildingDescription(); // returns resource_description_
 
-        void setReserve(int reserve);
-        int getReserve();
+        void setReserve(int reserve); // sets reserve_ to reserve
+        int getReserve(); // return reserve_
 };
 
 #endif

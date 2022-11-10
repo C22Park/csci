@@ -14,8 +14,8 @@ using namespace std;
 class Map
 {
 private:
-    static const int num_rows_ = 12; // number of rows in map
-    static const int num_cols_ = 12; // number of columns in map
+    static const int num_rows_ = 15; // number of rows in map
+    static const int num_cols_ = 15; // number of columns in map
 
     char map_data_[num_rows_][num_cols_]; // stores the character that will be shown at a given (row,col)
 

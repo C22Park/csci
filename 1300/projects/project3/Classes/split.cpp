@@ -11,12 +11,12 @@ using namespace std;
 
 int split(string input_string, char separator, string arr[], int arr_size)
 {
-    for (int i = 0; i < arr_size; i++)
+    for (int i = 0; i < arr_size; i++) // clears the array so the same array can be used multiple time without clearing it in the main function
     {
         arr[i] = "";
     }
 
-    if (input_string == "")
+    if (input_string == "") 
     {
         return 0;
     }

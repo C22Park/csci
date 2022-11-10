@@ -1,1 +1,1 @@
-Chest,A creaky old chest,50
+Chest,A creaky old chest,30
