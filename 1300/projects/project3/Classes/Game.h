@@ -17,13 +17,13 @@ class Game
         int materials_[2];
 
     public:
-        Game(bool active_cheats[6], string username, int difficulty);
+        Game(bool active_cheats[6], string username, int difficulty); // paramaterized constructor
+        
+        void fightEnemy(); // calculates fighting mechanics on tile player is on
 
-        void fightEnemy();
+        string gameMenu(); // map and menu, returns players input 
 
-        string gameMenu();
-
-        void playGame();
+        void playGame(); // runs game
 };
 
 #endif

@@ -5,19 +5,18 @@
         -For code skeleton
         -For full game
     4. balance game
-    5. implement crafting
-        -materials from fights or resources
-        -You can only "craft" by upgrading a building to a second tier form
+    5. implement upgrades
+        -You can only upgrade a building to a second tier form
             -Barracks -(2 Stone 2 Wood)-> Military Acadamy | 4 soldier per year .1x strength per year
             -Barracks -(2 Food 1 Wood)-> Conquering Party | 2 soldier per year 100 gold per year
             -Gold Mine -(2 Wood 2 stone)-> Market | 5 gold per turn
-            -Blacksmith -(2 stone 5 soldier)-> Sweatshop | .1x multiplier per year -100 gold per year
+            -Blacksmith -(2 stone 5 soldiers)-> Sweatshop | .1x multiplier per year -100 gold per year
     6. New cheats!!
-    7. Make a game class to implement functions, get rid of map arrays and have those be a shared map object etc
 */
 #include <iostream>
 #include <fstream> 
 #include <ctype.h>
+#include <unistd.h>
 #include "Classes/randomizer.cpp"
 #include "Classes/split.cpp"
 #include "Classes/activeCheats.cpp"
@@ -25,6 +24,71 @@
 #include "Classes/Game.cpp"
 
 using namespace std;
+
+void howToPlay()
+{
+    Map map;
+
+    map.displayMap();
+        cout << "This is the starting state of the map\n"
+             << "Press enter to continue\n";
+        string input;
+        getline(cin, input);
+        system("clear");
+
+        map.enemy_armies.push_back(Army("Enemy", 0, 0, 0, 6, 6)); // spawns an enemy above the player
+        map.setMap(6, 6);
+        map.displayMap();
+        cout << "Enemies that spawn on the map look like E\n"
+             << "Press enter to continue\n";
+        getline(cin, input);
+        system("clear");
+
+        map.buildings.push_back(Building("Building", "Building Description", 6, 7)); // spawns a building above the player
+        map.setMap(6, 7);
+        map.displayMap();
+        cout << "Buildings the player make look like B\n"
+             << "Press enter to continue\n";
+        getline(cin, input);
+        system("clear");
+
+        map.resources.push_back(Resource("Resource", "Resource Description", 0, 6, 8)); // spawns a resource above the player
+        map.setMap(6, 8);
+        map.displayMap();
+        cout << "Resources the player can collect look like R\n"
+             << "Press enter to continue\n";
+        getline(cin, input);
+        system("clear");
+
+        map.displayMap();
+        cout << "The player moves with w a s d\n"
+             << "Press enter to continue\n";
+        getline(cin, input);
+        system("clear");
+
+        map.move('d');
+        map.displayMap();
+        sleep(1);
+        system("clear");
+
+        map.move('d');
+        map.displayMap();
+        sleep(1);
+        system("clear");
+
+        map.buildings.push_back(Building("Building", "Building Description", 7, 9));
+        map.move('d');
+        map.displayMap();
+        sleep(1);
+        system("clear");
+
+        map.move('d');
+        map.displayMap();
+        cout << "When the player reahces an unexplored space, '-', they explore it and any objects there will be exposed\n"
+             << "Press enter to go back to menu\n";
+        getline(cin, input);
+        system("clear");
+}
 
 int main()
 {
@@ -70,10 +134,11 @@ int main()
                  << "Your soldiers require 1 gold each every year\n"
                  << "The game ends when your gold reaches 0 or your army is completely wiped out\n"
                  << "See how long you can last!\n"
-                 << "Press enter to go back\n";
+                 << "Press enter to see the game\n";
             getline(cin, input);
             system("clear");
             input = "0";
+            howToPlay();
         } else if (input == "3") // High Scores
         {
             system("clear");

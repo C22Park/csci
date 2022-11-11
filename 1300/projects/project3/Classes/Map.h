@@ -27,26 +27,24 @@ public:
 
     const char UNEXPLORED = '-'; // marker for unexplored spaces
     const char EXPLORED = ' '; // marker for explored spaces
-    const char RESOURCE = 'R'; // marker for unused resource
-    const char BUILDING = 'B'; // marker for building locations
-    const char ENEMY_ARMY = 'E'; // marker for enemy locations
-    const char PLAYER_ARMY = 'X'; // marker for party position
+    const char RESOURCE = 'R'; // marker for unused resource 
+    const char BUILDING = 'B'; // marker for building locations 
+    const char ENEMY_ARMY = 'E'; // marker for enemy locations 
+    const char PLAYER_ARMY = 'X'; // marker for party position 
 
-    Map();
+    Map(); // default constructor
 
     // getters
-    int getBuildingCount();
-    int getEnemyCount();
-    int getNumRows();
-    int getNumCols();
-    bool isOnMap(int row, int col);
-    bool isExplored(int row, int col);
-    char trueSpace(int row, int col);
+    int getNumRows(); // returns num_rows_
+    int getNumCols(); // returns num_cols_
+    bool isOnMap(int row, int col); // returns true if position is valid
+    bool isExplored(int row, int col); // returns true if a position is explored
+    char trueSpace(int row, int col); // returns what non-player object is at that position if any
 
     // other
-    void displayMap();
-    void setMap(int row, int col);
-    bool move(char direction);
+    void displayMap(); // draws map
+    void setMap(int row, int col); // sets map_data_ at position to trueSpace or PLAYER_ARMY
+    bool move(char direction); // moves player_army the direction corresponding to w a s or d
     
 };
 

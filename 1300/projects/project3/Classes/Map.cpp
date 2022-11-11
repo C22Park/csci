@@ -23,23 +23,15 @@ Map::Map()
 }
 
 // getters
-int Map::getBuildingCount()
-{
-    return buildings.size();
-}
-int Map::getEnemyCount()
-{
-    return enemy_armies.size();
-}
-int Map::getNumRows()
+int Map::getNumRows() // returns num_rows_
 {
     return num_rows_;
 }
-int Map::getNumCols()
+int Map::getNumCols() // returns num_cols_
 {
     return num_cols_;
 }
-bool Map::isOnMap(int row, int col)
+bool Map::isOnMap(int row, int col) // returns true if position is valid
 {
     if (row >= 0 && row < num_rows_ && col >= 0 && col < num_cols_)
     {
@@ -49,7 +41,7 @@ bool Map::isOnMap(int row, int col)
         return false;
     }
 }
-bool Map::isExplored(int row, int col)
+bool Map::isExplored(int row, int col) // returns true if a position is explored
 {
     if (map_data_[row][col] == UNEXPLORED)
     {
@@ -59,7 +51,7 @@ bool Map::isExplored(int row, int col)
         return true;
     }
 }
-char Map::trueSpace(int row, int col)
+char Map::trueSpace(int row, int col) // returns what non-player object is at that position if any
 {
     for (int i = 0; i < enemy_armies.size(); i++)
     {
@@ -86,7 +78,7 @@ char Map::trueSpace(int row, int col)
 }
 
 // other
-void Map::displayMap()
+void Map::displayMap() // draws map
 {
     cout << " ";
     for (int row = 0; row < num_rows_; row++)
@@ -112,7 +104,7 @@ void Map::displayMap()
     }
     cout << "‾\n";
 }
-void Map::setMap(int row, int col)
+void Map::setMap(int row, int col) // sets map_data_ at position to trueSpace or PLAYER_ARMY
 {
     map_data_[row][col] = trueSpace(row, col);
     if (player_army.isPosition(row, col))
@@ -120,7 +112,7 @@ void Map::setMap(int row, int col)
         map_data_[row][col] = PLAYER_ARMY;
     }
 }
-bool Map::move(char direction)
+bool Map::move(char direction) // moves player_army the direction corresponding to w a s or d
 {
     switch (direction)
     {

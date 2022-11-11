@@ -1,4 +1,2 @@
 USERNAME | ARMY SIZE | DAYS LASTED | DIFFICULTY
-Charlie | 18 | 81 | EASY
-f | 10 | 1 | EASY
-c | 10 | 257 | EASY
+Player | 10 | 0 | EASY

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Game::Game(bool active_cheats[6], string username, int difficulty)
+Game::Game(bool active_cheats[6], string username, int difficulty) // paramaterized constructor
 {
     for (int i = 0; i < 6; i++)
     {
@@ -52,7 +52,7 @@ Game::Game(bool active_cheats[6], string username, int difficulty)
         - returns the number of enemy soldiers killed
 */
 
-void Game::fightEnemy()
+void Game::fightEnemy() // calculates fighting mechanics on tile player is on
 {
     int difference = 0;
     string input;
@@ -105,13 +105,13 @@ void Game::fightEnemy()
     }
 }
 
-string Game::gameMenu()
+string Game::gameMenu() // map and menu, returns players input 
 {
     string input;
     int row = map.player_army.getRow();
     int col = map.player_army.getCol();
 
-    map.displayMap();
+    // STATS AND MAP
     cout << username_ << "'s Kingdom | " << map.player_army.getGold() << " Gold | " << -map.player_army.getArmySize() << " Gold/year | " << materials_[0] << " Stone | " << materials_[1] << " Wood" << "\n"
          << map.player_army.getArmySize() << " Soldiers | " << map.player_army.getArmyStrength() << " Strength | Day " << (day_ % 20) + 1 << " Year " << day_ / 20 << " | Position: (" << map.player_army.getRow() + 1 << ", " << map.player_army.getCol() + 1 << ") ";
     for (int i = 0; i < map.resources.size(); i++)
@@ -142,7 +142,11 @@ string Game::gameMenu()
             cout << map.enemy_armies[i].getName() << " - " << map.enemy_armies[i].getArmySize() << " Soldiers";
         }
     }
-    cout << "\nUse w/a/s/d to move | Commands: ";
+    cout << "\n";
+
+    map.displayMap();
+
+    cout << "Use w/a/s/d to move | Commands: ";
     if (map.trueSpace(row, col) == map.RESOURCE || map.trueSpace(row, col) == map.BUILDING)
     {
         cout << "investigate | ";
@@ -154,6 +158,8 @@ string Game::gameMenu()
         cout << "fight | ";
     }
     cout << "options\n";
+
+    // USER INPUT
     getline(cin, input);
     if (input == "w" || input == "W")
     {
@@ -167,7 +173,7 @@ string Game::gameMenu()
     } else if (input == "d" || input == "D")
     {
         input ="d";
-    } else if (input == "options")
+    } else if (input == "options") // Option Menu
     {
         while (input == "options")
         {
@@ -253,7 +259,7 @@ string Game::gameMenu()
     return input;
 }
 
-void Game::playGame()
+void Game::playGame() // runs game
 {
     int year = 0;
     bool new_year = false;
@@ -368,6 +374,7 @@ void Game::playGame()
                 << "Days Lasted: " << day_ << "\n"
                 << "Press enter to continue\n";
             getline(cin, input);
+            system("clear");
 
             file.open("highscores.txt");
             getline(file, input);
@@ -408,11 +415,14 @@ void Game::playGame()
         }
 
         system("clear");
-        if (map.player_army.getArmySize() > max_army_size_)
+
+        if (map.player_army.getArmySize() > max_army_size_) // High Score
         {
             max_army_size_ = map.player_army.getArmySize();
         }
+
         input = Game::gameMenu();
+
         if (input == "w")
         {
             if (map.move('w'))
@@ -529,18 +539,18 @@ void Game::playGame()
                 system("clear");
                 cout << "Gold: " << map.player_army.getGold() << "\n"
                      << "Buildings:\n"
-                     << "1. Barracks 20g (Makes 2 soldier per year)\n"
-                     << "2. Gold Mine 50g (Makes 1 gold every day, stores 25 gold max)\n"
+                     << "1. Barracks 25g (Makes 1 soldier per year)\n"
+                     << "2. Gold Mine 50g (Makes 1 gold every day, stores 15 gold max)\n"
                      << "3. Blacksmith 150g (Increases your strength multiplier by .1x)\n"
                      << "4. Exit\n";
                 getline(cin, input);
-                if (input == "1" && map.player_army.getGold() >= 20)
+                if (input == "1" && map.player_army.getGold() >= 25)
                 {
-                    map.buildings.push_back(Building("Barracks", "Makes 2 soldiers per year", map.player_army.getRow(), map.player_army.getCol()));
-                    map.player_army.setGold(map.player_army.getGold() - 20);
+                    map.buildings.push_back(Building("Barracks", "Makes 1 soldiers per year", map.player_army.getRow(), map.player_army.getCol()));
+                    map.player_army.setGold(map.player_army.getGold() - 25);
                 } else if (input == "2" && map.player_army.getGold() >= 50)
                 {
-                    map.buildings.push_back(Building("Gold Mine", "Makes 1 gold every day, stores 25 gold max", map.player_army.getRow(), map.player_army.getCol()));
+                    map.buildings.push_back(Building("Gold Mine", "Makes 1 gold every day, stores 15 gold max", map.player_army.getRow(), map.player_army.getCol()));
                     map.player_army.setGold(map.player_army.getGold() - 50);
                 } else if (input == "3" && map.player_army.getGold() >= 150)
                 {
@@ -562,9 +572,11 @@ void Game::playGame()
             system("clear");
             Game::fightEnemy();
         }
+
+        // END OF TURN ACTIONS
         if (didMove)
         {
-            if (map.trueSpace(map.player_army.getRow(), map.player_army.getCol()) == map.ENEMY_ARMY)
+            if (map.trueSpace(map.player_army.getRow(), map.player_army.getCol()) == map.ENEMY_ARMY) // If user walks on enemy tile
             {
                 system("clear");
                 Game::fightEnemy();
@@ -582,7 +594,7 @@ void Game::playGame()
                 new_year = false;
             }
 
-            if (new_year)
+            if (new_year) // Upkeep Cost
             {
                 map.player_army.setGold(map.player_army.getGold() - map.player_army.getArmySize());
             }
@@ -593,8 +605,8 @@ void Game::playGame()
             {
                 if (map.buildings[i].getName() == "Barracks" && new_year)
                 {
-                    map.buildings[i].setReserve(map.buildings[i].getReserve() + 2);
-                } else if (map.buildings[i].getName() == "Gold Mine" && map.buildings[i].getReserve() < 25)
+                    map.buildings[i].setReserve(map.buildings[i].getReserve() + 1);
+                } else if (map.buildings[i].getName() == "Gold Mine" && map.buildings[i].getReserve() < 15)
                 {
                     map.buildings[i].setReserve(map.buildings[i].getReserve() + 1);
                 }
@@ -613,7 +625,7 @@ void Game::playGame()
                     col = randomNum(0, map.getNumCols() - 1);
                     if (map.trueSpace(row, col) == map.EXPLORED)
                     {
-                        map.enemy_armies.push_back(Army("Enemy", ((year / 10) + 2) * year, 1 + (year / 100.0), ((year / 10) + 1) * year,row,col));
+                        map.enemy_armies.push_back(Army("Enemy", ((year / 10) + 2) * year, 1 + (year / 50.0), 2 * year,row,col));
                         if (map.isExplored(row, col))
                         {
                             map.setMap(row, col);
@@ -625,8 +637,8 @@ void Game::playGame()
                             if (map.enemy_armies[j].isPosition(row, col))
                             {
                                 map.enemy_armies[j].setArmySize(map.enemy_armies[j].getArmySize() + (((year / 10) + 2) * year));
-                                map.enemy_armies[j].setStrengthMultiplier(1 + (year / 100.0));
-                                map.enemy_armies[j].setGold(map.enemy_armies[j].getGold() + (((year / 10) + 1) * year));
+                                map.enemy_armies[j].setStrengthMultiplier(1 + (year / 50.0));
+                                map.enemy_armies[j].setGold(map.enemy_armies[j].getGold() + (2 * year));
                             }
                         }
                     } else if (map.trueSpace(row, col) == map.BUILDING)
