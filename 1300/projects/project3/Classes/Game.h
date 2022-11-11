@@ -15,6 +15,7 @@ class Game
         int max_army_size_;
         int enemies_killed_;
         int materials_[2];
+        bool reserve_view;
 
     public:
         Game(bool active_cheats[6], string username, int difficulty); // paramaterized constructor
@@ -24,6 +25,8 @@ class Game
         string gameMenu(); // map and menu, returns players input 
 
         void playGame(); // runs game
+
+        void howToPlay();
 };
 
 #endif

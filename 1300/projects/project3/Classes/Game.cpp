@@ -20,6 +20,7 @@ Game::Game(bool active_cheats[6], string username, int difficulty) // paramateri
     enemies_killed_ = 0;
     materials_[0] = 0;
     materials_[1] = 0;
+    reserve_view = false;
 
     if (difficulty == 1)
     {
@@ -144,6 +145,32 @@ string Game::gameMenu() // map and menu, returns players input
     }
     cout << "\n";
 
+    if (reserve_view)
+    {
+        for (int i = 0; i < map.buildings.size(); i++)
+                {
+                    for (int j = 0; j < map.getNumRows(); j++)
+                    {
+                        for (int k = 0; k < map.getNumCols(); k++)
+                        {
+                            if (map.buildings[i].isPosition(j, k))
+                            {
+                                if (map.buildings[i].getReserve() >= 10)
+                                {
+                                    map.changeMapData("F", j, k);
+                                } else
+                                {
+                                    map.changeMapData(to_string(map.buildings[i].getReserve()), j, k);
+                                }
+                            }
+                            if (map.player_army.isPosition(j, k))
+                            {
+                                map.changeMapData("X", j, k);
+                            }
+                        }
+                    }
+                }
+    }
     map.displayMap();
 
     cout << "Use w/a/s/d to move | Commands: ";
@@ -248,7 +275,8 @@ string Game::gameMenu() // map and menu, returns players input
             getline(cin, input);
             input = "";    
         }
-    } else
+    } else if (input == "r")
+    {} else
     {
         cout << "Invalid Input\n"
                 << "Press enter to continue\n";
@@ -421,6 +449,7 @@ void Game::playGame() // runs game
             max_army_size_ = map.player_army.getArmySize();
         }
 
+        // MENU AND PLAYER INPUT
         input = Game::gameMenu();
 
         if (input == "w")
@@ -571,6 +600,28 @@ void Game::playGame() // runs game
         {
             system("clear");
             Game::fightEnemy();
+        } else if (input == "r")
+        {
+            if (reserve_view)
+            {
+                reserve_view = false;
+                for (int i = 0; i < map.buildings.size(); i++)
+                {
+                    for (int j = 0; j < map.getNumRows(); j++)
+                    {
+                        for (int k = 0; k < map.getNumCols(); k++)
+                        {
+                            if (map.buildings[i].isPosition(j, k))
+                            {
+                                map.setMap(j, k);
+                            }
+                        }
+                    }
+                }
+            } else
+            {
+                reserve_view = true;
+            }
         }
 
         // END OF TURN ACTIONS
@@ -744,4 +795,146 @@ void Game::playGame() // runs game
         ofile << "HARD\n";
     }
     ofile.close();
+}
+
+void Game::howToPlay()
+{
+    string input;
+
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 1 Year 1 | Position: (7, 7)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "This is the starting state of the map\n"
+            << "Press enter to continue\n";
+    getline(cin, input);
+    system("clear");
+
+    map.enemy_armies.push_back(Army("Enemy", 0, 0, 0, 6, 6)); // spawns an enemy above the player
+    map.setMap(6, 6);
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 1 Year 1 | Position: (7, 7)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "Enemies that spawn on the map look like E\n"
+            << "Press enter to continue\n";
+    getline(cin, input);
+    system("clear");
+
+    map.buildings.push_back(Building("Building", "Building Description", 6, 7)); // spawns a building above the player
+    map.setMap(6, 7);
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 1 Year 1 | Position: (7, 7)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "Buildings the player make look like B\n"
+            << "Press enter to continue\n";
+    getline(cin, input);
+    system("clear");
+
+    map.resources.push_back(Resource("Resource", "Resource Description", 0, 6, 8)); // spawns a resource above the player
+    map.setMap(6, 8);
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 1 Year 1 | Position: (7, 7)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "Resources the player can collect look like R\n"
+            << "Press enter to continue\n";
+    getline(cin, input);
+    system("clear");
+
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 1 Year 1 | Position: (7, 7)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "The player moves with w a s d, every time you move one day passes in game\n";
+    sleep(1);
+    system("clear");
+
+    map.move('d');
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 2 Year 1 | Position: (7, 8)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "The player moves with w a s d, every time you move one day passes in game\n";
+    sleep(1);
+    system("clear");
+
+    map.resources.push_back(Resource("Resource", "Resource Description", 10, 7, 9));
+    map.move('d');
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 3 Year 1 | Position: (7, 9) Boulder\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: investigate | options\n\n";
+    cout << "The player moves with w a s d, every time you move one day passes in game\n";
+    sleep(1);
+    system("clear");
+
+    map.move('d');
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 4 Year 1 | Position: (7, 10)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "The player moves with w a s d, every time you move one day passes in game\n";
+    sleep(1);
+    system("clear");
+
+    map.move('d');
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 5 Year 1 | Position: (7, 11)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "When the player reahces an unexplored space, '-', they explore it and any objects there will be exposed\n"
+         << "Press enter to continue\n";
+    getline(cin, input);
+    system("clear");
+
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 5 Year 1 | Position: (7, 11)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "Using the commands below the map the player can build or interact with objects. This interaction can result in\n"
+         << "getting gold or soldiers from the players buildings, rewards from resources, or looted gold if the successfully fight an enemy\n"
+         << "Press enter to continue\n";
+    getline(cin, input);
+    system("clear");
+
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 5 Year 1 | Position: (7, 11)\n";
+    map.changeMapData("5", 6, 7);
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "Entering 'r' as a command will toggle reserve view, in reserve view you can see how many soldiers\n" 
+         << "or gold are in your buildings,any value over 10 shows up as F\n"
+         << "Press enter to continue\n";
+    getline(cin, input);
+    system("clear");
+
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 5 Year 1 | Position: (7, 11)\n";
+    map.changeMapData("B", 6, 7);
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "Every year is 20 days, each year you pay 1 gold for every soldier for upkeep\n"
+         << "Press enter to continue\n";
+    getline(cin, input);
+    system("clear");
+
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 5 Year 1 | Position: (7, 11)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "Additionally, every year more enemies and resources spawn, enemies can spawn on your buildings stealing gold from you\n"
+         << "Press enter to continue\n";
+    getline(cin, input);
+    system("clear");
+
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 5 Year 1 | Position: (7, 11)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "The game ends when your gold or the size of your army is 0. Good Luck!!!\n"
+         << "Press enter to go back to the main menu\n";
+    getline(cin, input);
+    system("clear");
 }

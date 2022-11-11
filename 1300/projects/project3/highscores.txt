@@ -1,2 +1,9 @@
 USERNAME | ARMY SIZE | DAYS LASTED | DIFFICULTY
-Player | 10 | 0 | EASY
+f | 10 | 2 | EASY
+f | 10 | 2 | EASY
+f | 10 | 16 | EASY
+Charlie | 10 | 5 | EASY
+Charlie | 10 | 28 | EASY
+charlie | 10 | 12 | EASY
+Charlie | 10 | 25 | EASY
+d | 10 | 16 | EASY

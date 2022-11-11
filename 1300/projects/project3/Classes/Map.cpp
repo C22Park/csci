@@ -51,7 +51,7 @@ bool Map::isExplored(int row, int col) // returns true if a position is explored
         return true;
     }
 }
-char Map::trueSpace(int row, int col) // returns what non-player object is at that position if any
+string Map::trueSpace(int row, int col) // returns what non-player object is at that position if any
 {
     for (int i = 0; i < enemy_armies.size(); i++)
     {
@@ -163,4 +163,9 @@ bool Map::move(char direction) // moves player_army the direction corresponding 
         default:
             return false;
     }
+}
+
+void Map::changeMapData(string map_data, int row, int col) // sets map_data_[row][col] to map_data
+{
+    map_data_[row][col] = map_data;
 }

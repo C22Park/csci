@@ -2,8 +2,6 @@
     1. Display current reserve in buildings as special view if hotkey is pressed, idek if this one possible
     2. Write code skeleton driver
     3.write all algorithms and comments
-        -For code skeleton
-        -For full game
     4. balance game
     5. implement upgrades
         -You can only upgrade a building to a second tier form
@@ -17,6 +15,7 @@
 #include <fstream> 
 #include <ctype.h>
 #include <unistd.h>
+#include <sstream>
 #include "Classes/randomizer.cpp"
 #include "Classes/split.cpp"
 #include "Classes/activeCheats.cpp"
@@ -24,71 +23,6 @@
 #include "Classes/Game.cpp"
 
 using namespace std;
-
-void howToPlay()
-{
-    Map map;
-
-    map.displayMap();
-        cout << "This is the starting state of the map\n"
-             << "Press enter to continue\n";
-        string input;
-        getline(cin, input);
-        system("clear");
-
-        map.enemy_armies.push_back(Army("Enemy", 0, 0, 0, 6, 6)); // spawns an enemy above the player
-        map.setMap(6, 6);
-        map.displayMap();
-        cout << "Enemies that spawn on the map look like E\n"
-             << "Press enter to continue\n";
-        getline(cin, input);
-        system("clear");
-
-        map.buildings.push_back(Building("Building", "Building Description", 6, 7)); // spawns a building above the player
-        map.setMap(6, 7);
-        map.displayMap();
-        cout << "Buildings the player make look like B\n"
-             << "Press enter to continue\n";
-        getline(cin, input);
-        system("clear");
-
-        map.resources.push_back(Resource("Resource", "Resource Description", 0, 6, 8)); // spawns a resource above the player
-        map.setMap(6, 8);
-        map.displayMap();
-        cout << "Resources the player can collect look like R\n"
-             << "Press enter to continue\n";
-        getline(cin, input);
-        system("clear");
-
-        map.displayMap();
-        cout << "The player moves with w a s d\n"
-             << "Press enter to continue\n";
-        getline(cin, input);
-        system("clear");
-
-        map.move('d');
-        map.displayMap();
-        sleep(1);
-        system("clear");
-
-        map.move('d');
-        map.displayMap();
-        sleep(1);
-        system("clear");
-
-        map.buildings.push_back(Building("Building", "Building Description", 7, 9));
-        map.move('d');
-        map.displayMap();
-        sleep(1);
-        system("clear");
-
-        map.move('d');
-        map.displayMap();
-        cout << "When the player reahces an unexplored space, '-', they explore it and any objects there will be exposed\n"
-             << "Press enter to go back to menu\n";
-        getline(cin, input);
-        system("clear");
-}
 
 int main()
 {
@@ -102,13 +36,21 @@ int main()
 
     while (input != "6")
     {
-        cout << "KINGDOM RUSH\n"
-             << "1. Start Game\n"
-             << "2. How to Play\n"
-             << "3. High Scores\n"
-             << "4. Settings\n"
-             << "5. Credits\n"
-             << "6. Quit Game\n";
+        cout << " _  __ _                    _                      _____              _              \n"
+             << "| |/ /(_)                  | |                    |  __ \\            | |            \n"
+             << "| ' /  _  _ __    __ _   __| |  ___   _ __ ___    | |__) |_   _  ___ | |__           \n"
+             << "|  <  | || '_ \\  / _` | / _` | / _ \\ | '_ ` _ \\   |  _  /| | | |/ __|| '_ \\      \n"
+             << "| . \\ | || | | || (_| || (_| || (_) || | | | | |  | | \\ \\| |_| |\\__ \\| | | |    \n"
+             << "|_|\\_\\|_||_| |_| \\__, | \\__,_| \\___/ |_| |_| |_|  |_|  \\_\\\\__,_||___/|_| |_| \n"
+             << "                  __/ |                                                              \n"
+             << "                 |___/                                                               \n"
+             << "                                                                                     \n"
+             << "                              1. Start Game                                          \n"
+             << "                              2. Tutorial                                            \n"
+             << "                              3. High Scores                                         \n"
+             << "                              4. Settings                                            \n"
+             << "                              5. Credits                                             \n"
+             << "                              6. Quit Game                                           \n\n";
         
         getline(cin, input);
 
@@ -123,22 +65,12 @@ int main()
             system("clear");
             input = "1";
 
-        } else if (input == "2") // How to Play
+        } else if (input == "2") // Tutorial
         {
             system("clear");
-            cout << "How to play Kingdom Rush\n"
-                 << "Explore the map using wasd\n"
-                 << "Investigating resource nodes can net you gold or power\n"
-                 << "Make buildings to gain gold or grow your army\n"
-                 << "Enemies will try to steal from your buildings and fight you on the map\n"
-                 << "Your soldiers require 1 gold each every year\n"
-                 << "The game ends when your gold reaches 0 or your army is completely wiped out\n"
-                 << "See how long you can last!\n"
-                 << "Press enter to see the game\n";
-            getline(cin, input);
-            system("clear");
-            input = "0";
-            howToPlay();
+            Game* tutorial = new Game(active_cheats, "", 0);
+            tutorial -> howToPlay();
+            delete tutorial;
         } else if (input == "3") // High Scores
         {
             system("clear");
