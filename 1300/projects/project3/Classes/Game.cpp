@@ -1,5 +1,4 @@
 #include "Game.h"
-//#include "Map.cpp"
 
 using namespace std;
 
@@ -1153,11 +1152,20 @@ void Game::howToPlay()
 
     cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
          << "10 Soldiers | 10 Strength | Day 5 Year 1 | Position: (7, 11)\n";
+    map.displayMap();
+    cout << "Use w/a/s/d to move | Commands: build | options\n\n";
+    cout << "Using materials from certain resources you can upgrade buildings to a second tier form\n"
+         << "Press enter to continue\n";
+    getline(cin, input);
+    system("clear");
+
+    cout << "Player's Kingdom | 200 Gold | -10 Gold/year | 0 Stone | 0 Wood\n"
+         << "10 Soldiers | 10 Strength | Day 5 Year 1 | Position: (7, 11)\n";
     map.changeMapData("5", 6, 7);
     map.displayMap();
     cout << "Use w/a/s/d to move | Commands: build | options\n\n";
     cout << "Entering 'r' as a command will toggle reserve view, in reserve view you can see how many soldiers\n" 
-         << "or gold are in your buildings,any value over 10 shows up as F\n"
+         << "or gold are in your buildings, any value over 10 shows up as F\n"
          << "Press enter to continue\n";
     getline(cin, input);
     system("clear");

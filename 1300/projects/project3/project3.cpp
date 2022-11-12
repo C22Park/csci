@@ -1,7 +1,6 @@
 /* To Do:
     1.write all algorithms and comments
     2. balance game
-    3. New cheats!!
 */
 #include <iostream>
 #include <fstream> 
