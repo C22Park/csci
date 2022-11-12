@@ -114,6 +114,7 @@ string Game::gameMenu() // map and menu, returns players input
     int col = map.player_army.getCol();
     int num_conquering_parties = 0;
     int num_banks = 0;
+    int num_sweatshops = 0;
 
     // STATS AND MAP
 
@@ -125,10 +126,13 @@ string Game::gameMenu() // map and menu, returns players input
         } else if (map.buildings[i].getName() == "Bank")
         {
             num_banks++;
+        } else if (map.buildings[i].getName() == "Sweatshop")
+        {
+            num_sweatshops++;
         }
     }
 
-    cout << username_ << "'s Kingdom | " << map.player_army.getGold() << " Gold | " << (num_conquering_parties * 40) + (num_banks * 50) - map.player_army.getArmySize() << " Gold/year | " << materials_[0] << " Stone | " << materials_[1] << " Wood" << "\n"
+    cout << username_ << "'s Kingdom | " << map.player_army.getGold() << " Gold | " << (num_conquering_parties * 40) + (num_banks * 50) - (num_sweatshops * 75) - map.player_army.getArmySize() << " Gold/year | " << materials_[0] << " Stone | " << materials_[1] << " Wood" << "\n"
          << map.player_army.getArmySize() << " Soldiers | " << map.player_army.getArmyStrength() << " Strength | Day " << (day_ % 20) + 1 << " Year " << day_ / 20 << " | Position: (" << map.player_army.getRow() + 1 << ", " << map.player_army.getCol() + 1 << ") ";
     for (int i = 0; i < map.resources.size(); i++)
     {
@@ -151,6 +155,12 @@ string Game::gameMenu() // map and menu, returns players input
             } else if (map.buildings[i].getName() == "Military Acadamy")
             {
                 cout << " - " << map.buildings[i].getReserve() << " Soldiers";
+            } else if (map.buildings[i].getName() == "Quarry")
+            {
+                cout << " - " << map.buildings[i].getReserve() << " Stone";
+            }else if (map.buildings[i].getName() == "Lumber Camp")
+            {
+                cout << " - " << map.buildings[i].getReserve() << " Wood";
             }
         }
     }
@@ -631,6 +641,27 @@ void Game::playGame() // runs game
                         cout << "Press enter to continue\n";
                         getline(cin, input);
                         input = "investigate";
+                    } else if (map.buildings[i].getName() == "Sweatshop")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                    } else if (map.buildings[i].getName() == "Quarry")
+                    {
+                        cout << map.buildings[i].getReserve() << " stone picked up\n"
+                             << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                        materials_[0] += map.buildings[i].getReserve();
+                        map.buildings[i].setReserve(0);
+                    } else if (map.buildings[i].getName() == "Lumber Camp")
+                    {
+                        cout << map.buildings[i].getReserve() << " wood picked up\n"
+                             << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                        materials_[0] += map.buildings[i].getReserve();
+                        map.buildings[i].setReserve(0);
                     }
                 }
             }
@@ -703,6 +734,51 @@ void Game::playGame() // runs game
                                 input = "3";
                             } else if (input == "3")
                             {} else
+                            {
+                                system("clear");
+                                cout << "Invalid Input\n"
+                                     << "Press enter to continue\n";
+                                getline(cin, input);
+                                input = "upgrade";    
+                            }
+                        }
+                    } else if (map.buildings[i].getName() == "Blacksmith")
+                    {
+                        while (input != "4")
+                        {
+                            cout << "1. Blacksmith -(5 Soldiers 2 Stone 2 Wood)-> Sweatshop\n"
+                                 << "   .1x multiplier per year -75 gold per year\n"
+                                 << "2. Blacksmith -(3 Stone 1 Wood)-> Quarry\n"
+                                 << "   2 stone per year\n"
+                                 << "3. Blacksmith -(1 Stone 3 Wood)-> Lumber Camp\n"
+                                 << "   2 wood per year\n"
+                                 << "4. Cancel\n\n";
+                            getline(cin, input);
+                            if (input == "1" && map.player_army.getArmySize() > 5 && materials_[0] >= 2 && materials_[1] >= 2)
+                            {
+                                map.buildings.erase(map.buildings.begin() + i);
+                                map.buildings.push_back(Building("Sweatshop", ".1x multiplier per year -75 gold per year", map.player_army.getRow(), map.player_army.getCol()));
+                                map.player_army.setArmySize(map.player_army.getArmySize() - 5);
+                                materials_[0] -= 2;
+                                materials_[1] -= 2;
+                                input = "4";
+                            } else if (input == "2" && materials_[0] >= 3 && materials_[1] >= 1)
+                            {
+                                map.buildings.erase(map.buildings.begin() + i);
+                                map.buildings.push_back(Building("Quarry", "2 stone per year", map.player_army.getRow(), map.player_army.getCol()));
+                                materials_[0] -= 3;
+                                materials_[1]--;
+                                input = "4";
+                            } else if (input == "3" && materials_[0] >= 1 && materials_[1] >= 3)
+                            {
+                                map.buildings.erase(map.buildings.begin() + i);
+                                map.buildings.push_back(Building("Lumber Camp", "2 wood per year", map.player_army.getRow(), map.player_army.getCol()));
+                                materials_[0] --;
+                                materials_[1] -= 3;
+                                input = "4";
+                            } else if (input == "4")
+                            { 
+                            }else
                             {
                                 system("clear");
                                 cout << "Invalid Input\n"
@@ -826,6 +902,16 @@ void Game::playGame() // runs game
                 } else if (map.buildings[i].getName() == "Bank" && new_year)
                 {
                     map.player_army.setGold(map.player_army.getGold() + 50);
+                } else if (map.buildings[i].getName() == "Sweatshop" && new_year)
+                {
+                    map.player_army.setStrengthMultiplier(map.player_army.getStrengthMultiplier() + .1);
+                    map.player_army.setGold(map.player_army.getGold() - 75);
+                } else if (map.buildings[i].getName() == "Quarry" && new_year)
+                {
+                    map.buildings[i].setReserve(map.buildings[i].getReserve() + 2);
+                } else if (map.buildings[i].getName() == "Lumber Camp" && new_year)
+                {
+                    map.buildings[i].setReserve(map.buildings[i].getReserve() + 2);
                 }
             }
 

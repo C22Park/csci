@@ -1,15 +1,7 @@
 /* To Do:
-    2. Write code skeleton driver
-    3.write all algorithms and comments
-    4. balance game
-    5. implement upgrades
-        -You can only upgrade a building to a second tier form
-            -Gold Mine -(2 Stone 2 Wood)-> Market | 2 gold per turn with automatic collection
-            -Gold Mine -(5 Stone)-> Bank | 50 gold per year automatic collection
-            -Blacksmith -(2 Stone 5 Soldiers)-> Sweatshop | .1x multiplier per year -75 gold per year
-            -Blacksmith -(3 Stone 1 Wood)-> Quarry | 2 stone per year
-            -Blacksmith -(1 Stone 3 Wood)-> Lumber Camp | 2 wood per year
-    6. New cheats!!
+    1.write all algorithms and comments
+    2. balance game
+    3. New cheats!!
 */
 #include <iostream>
 #include <fstream> 
