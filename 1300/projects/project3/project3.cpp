@@ -1,14 +1,14 @@
 /* To Do:
-    1. Display current reserve in buildings as special view if hotkey is pressed, idek if this one possible
     2. Write code skeleton driver
     3.write all algorithms and comments
     4. balance game
     5. implement upgrades
         -You can only upgrade a building to a second tier form
-            -Barracks -(2 Stone 2 Wood)-> Military Acadamy | 4 soldier per year .1x strength per year
-            -Barracks -(2 Food 1 Wood)-> Conquering Party | 2 soldier per year 100 gold per year
-            -Gold Mine -(2 Wood 2 stone)-> Market | 5 gold per turn
-            -Blacksmith -(2 stone 5 soldiers)-> Sweatshop | .1x multiplier per year -100 gold per year
+            -Gold Mine -(2 Stone 2 Wood)-> Market | 2 gold per turn with automatic collection
+            -Gold Mine -(5 Stone)-> Bank | 50 gold per year automatic collection
+            -Blacksmith -(2 Stone 5 Soldiers)-> Sweatshop | .1x multiplier per year -75 gold per year
+            -Blacksmith -(3 Stone 1 Wood)-> Quarry | 2 stone per year
+            -Blacksmith -(1 Stone 3 Wood)-> Lumber Camp | 2 wood per year
     6. New cheats!!
 */
 #include <iostream>
@@ -31,7 +31,7 @@ int main()
     ifstream file;
     ofstream ofile;
     string temp_arr[3];
-    bool active_cheats[6] = {0, 0, 0, 0, 0, 0};
+    bool active_cheats[7] = {0, 0, 0, 0, 0, 0, 0};
     int difficulty = 1;
 
     while (input != "6")
@@ -93,7 +93,7 @@ int main()
                 cout << "Settings:\n"
                     << "1. Difficulty\n"
                     << "2. Reset High Scores\n"
-                    << "3. Return to Menu\n";
+                    << "3. Return to Menu\n\n";
                 getline(cin, input);
                 if (input == "1")
                 {
@@ -103,7 +103,7 @@ int main()
                         cout << "Difficulties:\n"
                              << "1. Easy (200 gold, 10 soldiers, 2 enemy armies per year per year, 5 resources per year)\n"
                              << "2. Medium (120 gold, 5 soldiers, 4 enemy armies per year per year, 3 resources per year)\n"
-                             << "3. Hard (55 gold, 1 soldier, 6 enemy armies per year per year, 1 resource per year)\n";
+                             << "3. Hard (55 gold, 1 soldier, 6 enemy armies per year per year, 1 resource per year)\n\n";
                         getline(cin, input);
                         system("clear");
                         if (input == "1")
@@ -138,11 +138,11 @@ int main()
                 } else if (input == "3")
                 {} else if (input == "cheats")
                 {
-                    while(input != "7")
+                    while(input != "8")
                     {
                         system("clear");
                         activeCheats(active_cheats);
-                        cout << "7. Exit\n";
+                        cout << "8. Exit\n";
                         getline(cin, input);
                         if (input == "1")
                         {
@@ -199,6 +199,15 @@ int main()
                                 active_cheats[5] = true;
                             }
                         } else if (input == "7")
+                        {
+                            if (active_cheats[6])
+                            {
+                                active_cheats[6] = false;
+                            } else 
+                            {
+                                active_cheats[6] = true;
+                            }
+                        } else if (input == "8")
                         {} else
                         {
                             system("clear");

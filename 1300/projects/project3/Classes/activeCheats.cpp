@@ -31,5 +31,10 @@ void activeCheats(bool active_cheats[6]) // Display the names of all cheats in a
     {
         cout << " [ACTIVE]";
     }
+    cout << "\n7. Hoarder";
+    if (active_cheats[6]) 
+    {
+        cout << " [ACTIVE]";
+    }
     cout << "\n";
 }

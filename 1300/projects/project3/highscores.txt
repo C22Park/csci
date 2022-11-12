@@ -1,9 +1,11 @@
 USERNAME | ARMY SIZE | DAYS LASTED | DIFFICULTY
-f | 10 | 2 | EASY
-f | 10 | 2 | EASY
-f | 10 | 16 | EASY
-Charlie | 10 | 5 | EASY
-Charlie | 10 | 28 | EASY
-charlie | 10 | 12 | EASY
-Charlie | 10 | 25 | EASY
-d | 10 | 16 | EASY
+c | 12 | 30 | CHEATER
+f | 10 | 0 | EASY
+f | 10 | 50 | CHEATER
+c | 10 | 0 | EASY
+c | 10 | 0 | EASY
+f | 14 | 50 | CHEATER
+Player | 15 | 140 | CHEATER
+Player | 10 | 0 | EASY
+c | 10 | 1 | CHEATER
+c | 10 | 40 | CHEATER
