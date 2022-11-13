@@ -1,4 +1,1 @@
 USERNAME | ARMY SIZE | DAYS LASTED | DIFFICULTY
-Easy | 15 | 100 | EASY
-Easy | 33 | 269 | EASY
-Easy Test Fr tho | 55 | 260 | EASY
