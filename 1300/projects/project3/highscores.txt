@@ -1,1 +1,12 @@
 USERNAME | ARMY SIZE | DAYS LASTED | DIFFICULTY
+f | 10 | 0 | CHEATER
+Player | 10 | 0 | EASY
+f | 10 | 0 | CHEATER
+Player | 10 | 0 | CHEATER
+Player | 10 | 0 | EASY
+Player | 10 | 0 | EASY
+Player | 10 | 0 | CHEATER
+Player | 10 | 0 | CHEATER
+f | 10 | 0 | CHEATER
+Player | 10 | 0 | CHEATER
+Player | 10 | 0 | CHEATER

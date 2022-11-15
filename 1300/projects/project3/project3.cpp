@@ -17,6 +17,7 @@ using namespace std;
 
 int main()
 {
+    srand(time(NULL));
     system("clear");
     string input = "0";
     ifstream file;

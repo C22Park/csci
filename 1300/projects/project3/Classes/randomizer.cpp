@@ -6,8 +6,10 @@ using namespace std;
 
 int randomNum (int min, int max)
 {
-    uniform_real_distribution<float> distribution(min, max + .5);
-    random_device rd;
-    default_random_engine generator1(rd());
-    return distribution(generator1);
+    int random_number = min - 10;
+    while (random_number < min)
+    {
+        random_number = (double(rand()) / double(RAND_MAX)) * max;
+    }
+    return random_number;
 }
