@@ -9,7 +9,7 @@ string reverseString(string input)
         return input;
     } else 
     {
-        return reverseString(input.substr(1, input.length() - 1)) + input.substr(0, 1);
+        return reverseString(input.substr(1)) + input.substr(0, 1);
     }
 }
 
