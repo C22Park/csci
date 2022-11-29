@@ -1,5 +1,1 @@
 USERNAME | ARMY SIZE | DAYS LASTED | DIFFICULTY
-Player | 1401 | 1240 | Player | 10 | 2 | CHEATER
-Player | 10 | 2 | CHEATER
-Player | 10 | 61 | CHEATER
-Player | 10 | 99 | CHEATER

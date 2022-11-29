@@ -58,6 +58,7 @@ void Game::fightEnemy() // calculates fighting mechanics on tile player is on
     int difference = 0;
     string input;
 
+
     for (int i = 0; i < map.enemy_armies.size(); i++)
     {
         if (map.enemy_armies[i].isPosition(map.player_army.getRow(), map.player_army.getCol()))
@@ -1307,36 +1308,46 @@ void Game::playGame() // runs game
                                             map.resources.erase(map.resources.begin() + l);
                                             materials_[0]++;
                                             map.setMap(k, j);
+                                            j = map.buildings[i].getCol() + 3;
+                                            k = map.buildings[i].getRow() + 3;
                                         } else if (map.resources[l].getName() == "Forest")
                                         {
                                             map.resources.erase(map.resources.begin() + l);
                                             materials_[1]++;
                                             map.setMap(k, j);
+                                            j = map.buildings[i].getCol() + 3;
+                                            k = map.buildings[i].getRow() + 3;
                                         } else if (map.resources[l].getName() == "Chest")
                                         {
                                             map.resources.erase(map.resources.begin() + l);
                                             map.player_army.setGold(map.player_army.getGold() + 30);
                                             map.setMap(k, j);
+                                            j = map.buildings[i].getCol() + 3;
+                                            k = map.buildings[i].getRow() + 3;
                                         } else if (map.resources[l].getName() == "Ransacked Village")
                                         {
                                             map.resources.erase(map.resources.begin() + l);
                                             map.player_army.setArmySize(map.player_army.getArmySize() + 2);
                                             map.setMap(k, j);
+                                            j = map.buildings[i].getCol() + 3;
+                                            k = map.buildings[i].getRow() + 3;
                                         } else if (map.resources[l].getName() == "Ancient Temple")
                                         {
                                             map.resources.erase(map.resources.begin() + l);
                                             map.player_army.setStrengthMultiplier(map.player_army.getStrengthMultiplier() + .05);
                                             map.setMap(k, j);
+                                            j = map.buildings[i].getCol() + 3;
+                                            k = map.buildings[i].getRow() + 3;
                                         } else if (map.resources[l].getName() == "Dragon's Hoard")
                                         {
                                             map.resources.erase(map.resources.begin() + l);
                                             map.player_army.setGold(map.player_army.getGold() + 75);
                                             map.setMap(k, j);
+                                            j = map.buildings[i].getCol() + 3;
+                                            k = map.buildings[i].getRow() + 3;
                                         }
                                     }
                                 }
-                                j = map.buildings[i].getCol() + 3;
-                                k = map.buildings[i].getRow() + 3;
                             }
                         }   
                     }
@@ -1354,9 +1365,29 @@ void Game::playGame() // runs game
                 {
                     row = randomNum(0, map.getNumRows());
                     col = randomNum(0, map.getNumCols());
+                    int enemy_army_size = (1 + (year * (2 + (year / 5) + (year / 25))));
+                    double enemy_strength_multiplier;
+                    if (year / 5 == 0)
+                    {
+                        enemy_strength_multiplier = 1;
+                    } else
+                    {
+                        enemy_strength_multiplier = (1 + ((year - 4) * ((year / 5) * .05)));
+                    }
+                    int enemy_gold = 0;
+                    int counter = 0;
+                    for (int j = 1; j <= year; j++)
+                    {
+                        
+                        if ((j - 1) % 5 == 0)
+                        {
+                            counter++;
+                        }
+                        enemy_gold = enemy_gold + counter;
+                    }
                     if (map.trueSpace(row, col) == map.EXPLORED)
                     {
-                        map.enemy_armies.push_back(Army("Enemy", ((year / 5) + 2) * year, 1 + (.05 * (year / 5)), year + 5, row, col));
+                        map.enemy_armies.push_back(Army("Enemy", enemy_army_size, enemy_strength_multiplier, enemy_gold, row, col));
                         if (map.isExplored(row, col))
                         {
                             map.setMap(row, col);
@@ -1367,9 +1398,9 @@ void Game::playGame() // runs game
                         {
                             if (map.enemy_armies[j].isPosition(row, col))
                             {
-                                map.enemy_armies[j].setArmySize(map.enemy_armies[j].getArmySize() + (((year / 5) + 2) * year));
-                                map.enemy_armies[j].setStrengthMultiplier(1 + (.05 * (year / 5)));
-                                map.enemy_armies[j].setGold(map.enemy_armies[j].getGold() + (year + 5));
+                                map.enemy_armies[j].setArmySize(enemy_army_size);
+                                map.enemy_armies[j].setStrengthMultiplier(enemy_strength_multiplier);
+                                map.enemy_armies[j].setGold(enemy_gold);
                             }
                         }
                     } else if (map.trueSpace(row, col) == map.BUILDING)
@@ -1379,7 +1410,7 @@ void Game::playGame() // runs game
                              << "Press enter to continue\n";
                         getline(cin, input);
                         input = "";
-                        map.player_army.setGold(map.player_army.getGold() - (5 * year));
+                        map.player_army.setGold(enemy_army_size);
                         system("clear");
                     }
                 }
@@ -1460,6 +1491,14 @@ void Game::playGame() // runs game
     file.close();
 
     ofile.open("highscores.txt", ios::app);
+    for (int i = 0; i < map.buildings.size(); i++)
+    {
+        if (map.buildings[i].getName() == "Wizard Acadamy")
+        {
+            resource_spawn_rate_--;
+
+        }
+    }
     ofile << username_ << " | " << max_army_size_ << " | " << day_ << " | ";
     if (active_cheats_[0] || active_cheats_[1] || active_cheats_[2] || active_cheats_[3] || active_cheats_[4] || active_cheats_[5])
     {
