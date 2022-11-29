@@ -6,7 +6,8 @@ using namespace std;
 
 int randomNum (int min, int max)
 {
-    int random_number = min - 10;
+    min;
+    int random_number = min - 1;
     while (random_number < min)
     {
         random_number = (double(rand()) / double(RAND_MAX)) * max;

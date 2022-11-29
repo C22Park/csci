@@ -93,9 +93,9 @@ int main()
                     {
                         system("clear");
                         cout << "Difficulties:\n"
-                             << "1. Easy (200 gold, 10 soldiers, 2 enemy armies per year per year, 5 resources per year)\n"
-                             << "2. Medium (120 gold, 5 soldiers, 4 enemy armies per year per year, 3 resources per year)\n"
-                             << "3. Hard (55 gold, 1 soldier, 6 enemy armies per year per year, 1 resource per year)\n\n";
+                             << "1. Easy (500 gold, 10 soldiers, 2 enemy armies per year per year, 5 resources per year)\n"
+                             << "2. Medium (300 gold, 5 soldiers, 4 enemy armies per year per year, 3 resources per year)\n"
+                             << "3. Hard (150 gold, 1 soldier, 6 enemy armies per year per year, 2 resource per year)\n\n";
                         getline(cin, input);
                         system("clear");
                         if (input == "1")

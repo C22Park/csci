@@ -24,22 +24,22 @@ Game::Game(bool active_cheats[7], string username, int difficulty) // paramateri
 
     if (difficulty == 1)
     {
-        map.player_army.setGold(200);
+        map.player_army.setGold(500);
         map.player_army.setArmySize(10);
         enemy_spawn_rate_ = 2;
-        resource_spawn_rate_ = 3;
+        resource_spawn_rate_ = 5;
     } else if (difficulty == 2)
     {
-        map.player_army.setGold(120);
+        map.player_army.setGold(300);
         map.player_army.setArmySize(5);
         enemy_spawn_rate_ = 4;
-        resource_spawn_rate_ = 2;   
+        resource_spawn_rate_ = 3;   
     } else if (difficulty == 3)
     {
-        map.player_army.setGold(55);
+        map.player_army.setGold(150);
         map.player_army.setArmySize(1);
         enemy_spawn_rate_ = 6;
-        resource_spawn_rate_ = 1;
+        resource_spawn_rate_ = 2;
     }
 }
 
@@ -112,8 +112,11 @@ string Game::gameMenu() // map and menu, returns players input
     int row = map.player_army.getRow();
     int col = map.player_army.getCol();
     int num_conquering_parties = 0;
+    int num_trading_posts = 0;
     int num_banks = 0;
     int num_sweatshops = 0;
+    int num_trading_guilds = 0;
+    int num_serf_homes = 0;
 
     // STATS AND MAP
 
@@ -122,16 +125,25 @@ string Game::gameMenu() // map and menu, returns players input
         if (map.buildings[i].getName() == "Conquering Party")
         {
             num_conquering_parties++;
+        } else if (map.buildings[i].getName() == "Trading Post")
+        {
+            num_trading_posts++;
         } else if (map.buildings[i].getName() == "Bank")
         {
             num_banks++;
         } else if (map.buildings[i].getName() == "Sweatshop")
         {
             num_sweatshops++;
+        } else if (map.buildings[i].getName() == "Trading Guild")
+        {
+            num_trading_guilds++;
+        } else if (map.buildings[i].getName() == "Serf Homes")
+        {
+            num_serf_homes++;
         }
     }
 
-    cout << username_ << "'s Kingdom | " << map.player_army.getGold() << " Gold | " << (num_conquering_parties * 25) + (num_banks * 50) - (num_sweatshops * 75) - map.player_army.getArmySize() << " Gold/year | " << materials_[0] << " Stone | " << materials_[1] << " Wood" << "\n"
+    cout << username_ << "'s Kingdom | " << map.player_army.getGold() << " Gold | " << (num_conquering_parties * 25) - (num_trading_posts * 25) + (num_banks * 50) - (num_sweatshops * 75) + (num_trading_guilds * 200) + (num_serf_homes * 25) - map.player_army.getArmySize() << " Gold/year | " << materials_[0] << " Stone | " << materials_[1] << " Wood" << "\n"
          << map.player_army.getArmySize() << " Soldiers | " << map.player_army.getArmyStrength() << " Strength | Day " << (day_ % 20) + 1 << " Year " << day_ / 20 << " | Position: (" << map.player_army.getRow() + 1 << ", " << map.player_army.getCol() + 1 << ") ";
     for (int i = 0; i < map.resources.size(); i++)
     {
@@ -207,7 +219,7 @@ string Game::gameMenu() // map and menu, returns players input
         {
             if (map.buildings[i].isPosition(row, col))
             {
-                if (map.buildings[i].getName() == "Barracks" || map.buildings[i].getName() == "Gold Mine" || map.buildings[i].getName() == "Blacksmith")
+                if (map.buildings[i].getName() == "Barracks" || map.buildings[i].getName() == "Gold Mine" || map.buildings[i].getName() == "Blacksmith" || map.buildings[i].getName() == "Keep" || map.buildings[i].getName() == "Wall" || map.buildings[i].getName() == "Trading Guild" || map.buildings[i].getName() == "Military Police" || map.buildings[i].getName() == "Wizard Acadamy")
                 {
                     cout << "upgrade | ";
                 }
@@ -299,7 +311,7 @@ string Game::gameMenu() // map and menu, returns players input
         {
             if (map.buildings[i].isPosition(map.player_army.getRow(), map.player_army.getCol()))
             {
-                if (map.buildings[i].getName() != "Barracks" && map.buildings[i].getName() != "Gold Mine" && map.buildings[i].getName() != "Blacksmith")
+                if (map.buildings[i].getName() != "Barracks" && map.buildings[i].getName() != "Gold Mine" && map.buildings[i].getName() != "Blacksmith" && map.buildings[i].getName() != "Keep" && map.buildings[i].getName() != "Wall")
                 {
                     cout << "Invalid Input\n"
                         << "Press enter to continue\n";
@@ -480,17 +492,24 @@ void Game::playGame() // runs game
             file.close();
 
             ofile.open("highscores.txt", ios::app);
+            for (int i = 0; i < map.buildings.size(); i++)
+            {
+                if (map.buildings[i].getName() == "Wizard Acadamy")
+                {
+                    resource_spawn_rate_--;
+                }
+            }
             ofile << username_ << " | " << max_army_size_ << " | " << day_ << " | ";
             if (active_cheats_[0] || active_cheats_[1] || active_cheats_[2] || active_cheats_[3] || active_cheats_[4] || active_cheats_[5] || active_cheats_[6])
             {
                 ofile << "CHEATER\n";
-            } else if (resource_spawn_rate_ == 3)
+            } else if (resource_spawn_rate_ == 5)
             {
                 ofile << "EASY\n";
-            } else if (resource_spawn_rate_ == 2)
+            } else if (resource_spawn_rate_ == 3)
             {
                 ofile << "MEDIUM\n";
-            } else if (resource_spawn_rate_ == 1)
+            } else if (resource_spawn_rate_ == 2)
             {
                 ofile << "HARD\n";
             }
@@ -661,6 +680,46 @@ void Game::playGame() // runs game
                         input = "investigate";
                         materials_[1] += map.buildings[i].getReserve();
                         map.buildings[i].setReserve(0);
+                    } else if (map.buildings[i].getName() == "Keep")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                    } else if (map.buildings[i].getName() == "Wall")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                    } else if (map.buildings[i].getName() == "Trading Guild")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                    } else if (map.buildings[i].getName() == "Military Police")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                    } else if (map.buildings[i].getName() == "Wizard Acadamy")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                    } else if (map.buildings[i].getName() == "Archer Tower")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                    } else if (map.buildings[i].getName() == "Serf Homes")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
+                    } else if (map.buildings[i].getName() == "Survey Tower")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
                     }
                 }
             }
@@ -672,7 +731,7 @@ void Game::playGame() // runs game
                 {
                     if (map.buildings[i].getName() == "Barracks")
                     {
-                        while (input != "3")
+                        while (input != "4")
                         {
                             system("clear");
                             cout << "Gold: " << map.player_army.getGold() << " | Soldiers: " << map.player_army.getArmySize() << " | Stone: " << materials_[0] << " | Wood: " << materials_[1] << "\n"
@@ -681,7 +740,9 @@ void Game::playGame() // runs game
                                  << "   Makes 2 soldiers per year with automatic collection\n"
                                  << "2. Barracks -(2 Soldiers 1 Stone 1 Wood)-> Conquering Party\n"
                                  << "   Costs 1 soldiers a year and automatically collects 25 gold per year\n"
-                                 << "3. Cancel\n\n";
+                                 << "3. Barracks -(1 Soldier 1 Stone 2 Wood)-> Trading Post\n"
+                                 << "   -25 gold per year 1 random material with automatic collection\n"
+                                 << "4. Cancel\n\n";
                             getline(cin, input);
                             if (input == "1" && materials_[0] >= 2 && materials_[1] >= 2)
                             {
@@ -689,7 +750,7 @@ void Game::playGame() // runs game
                                 map.buildings.push_back(Building("Military Acadamy", "Makes 2 soldiers per year with automatic collection", map.player_army.getRow(), map.player_army.getCol()));
                                 materials_[0] -= 2;
                                 materials_[1] -= 2;
-                                input = "3";
+                                input = "4";
                             } else if (input == "2" && map.player_army.getArmySize() > 2 && materials_[0] >= 1 && materials_[1] >= 1)
                             {
                                 map.buildings.erase(map.buildings.begin() + i);
@@ -697,8 +758,16 @@ void Game::playGame() // runs game
                                 map.player_army.setArmySize(map.player_army.getArmySize() - 2);
                                 materials_[0]--;
                                 materials_[1]--;
-                                input = "3";
-                            } else if (input == "3")
+                                input = "4";
+                            } else if (input == "3" && map.player_army.getArmySize() > 1 && materials_[0] >= 1 && materials_[1] >= 2)
+                            {
+                                map.buildings.erase(map.buildings.begin() + i);
+                                map.buildings.push_back(Building("Trading Post", "-25 gold per year 1 random material with automatic collection", map.player_army.getRow(), map.player_army.getCol()));
+                                map.player_army.setArmySize(map.player_army.getArmySize() - 1);
+                                materials_[0]--;
+                                materials_[1] -= 2;
+                                input = "4";
+                            } else if (input == "4")
                             {} else
                             {
                                 system("clear");
@@ -792,6 +861,116 @@ void Game::playGame() // runs game
                                 input = "upgrade";    
                             }
                         }
+                    } else if (map.buildings[i].getName() == "Keep")
+                    {
+                        while (input == "upgrade")
+                        {
+                            system("clear");
+                            cout << "Gold: " << map.player_army.getGold() << " | Soldiers: " << map.player_army.getArmySize() << " | Stone: " << materials_[0] << " | Wood: " << materials_[1] << "\n"
+                                << "Upgrades:\n"; 
+                            int wall_count = 0;
+                            for (int i = 0; i < map.buildings.size(); i++)
+                            {
+                                if (map.buildings[i].getName() == "Wall" || map.buildings[i].getName() == "Archer Tower" || map.buildings[i].getName() == "Serf Homes" || map.buildings[i].getName() == "Survey Tower")
+                                {
+                                    wall_count++;
+                                }
+                            }
+                            if (wall_count == 8)
+                            {
+                                cout << "1. Keep -(500 Gold 2 Stone 4 Wood)-> Trading Guild\n"
+                                     << "   Produces 200g 1 wood and 1 stone every year automatically collected\n"
+                                     << "2. Keep -(25 Soldiers 3 Stone 3 Wood)-> Military Police\n"
+                                     << "   Automatically produce 1 soldier a day and .05x strength per year\n"
+                                     << "3. Keep -(250 Gold 10 Soldiers 2 Stone 2 Wood)-> Wizard Acadamy\n"
+                                     << "   +1 resource per year .1x strength per year\n"
+                                     << "4. Exit\n\n";
+                                getline(cin, input);
+                                if (input == "1" && map.player_army.getGold() > 500 && materials_[0] >= 2 && materials_[1] >= 4)
+                                {
+                                    map.buildings.erase(map.buildings.begin() + i);
+                                    map.player_army.setGold(map.player_army.getGold() - 500);
+                                    materials_[0] -= 2;
+                                    materials_[1] -= 4;
+                                    map.buildings.push_back(Building("Trading Guild", "Produces 200g 1 wood and 1 stone every year automatically collected", map.player_army.getRow(), map.player_army.getCol()));
+                                } else if (input == "2" && map.player_army.getArmySize() > 25 && materials_[0] >= 3 && materials_[1] >= 3)
+                                {
+                                    map.buildings.erase(map.buildings.begin() + i);
+                                    map.player_army.setArmySize(map.player_army.getArmySize() - 25);
+                                    materials_[0] -= 4;
+                                    materials_[1] -= 3;
+                                    map.buildings.push_back(Building("Military Police", "Automatically produce 1 soldier a day and .05x strength per year", map.player_army.getRow(), map.player_army.getCol()));
+                                } else if (input == "3" && map.player_army.getGold() > 250 && map.player_army.getArmySize() > 10 && materials_[0] >= 2 && materials_[1] >= 2)
+                                {
+                                    map.buildings.erase(map.buildings.begin() + i);
+                                    map.player_army.setGold(map.player_army.getGold() - 250);
+                                    map.player_army.setArmySize(map.player_army.getArmySize() - 10);
+                                    materials_[0] -= 2;
+                                    materials_[1] -= 2;
+                                    resource_spawn_rate_++;
+                                    map.buildings.push_back(Building("Wizard Acadamy", "+1 resource per year .1x strength per year", map.player_army.getRow(), map.player_army.getCol()));
+                                } else if (input == "4")
+                                {} else
+                                {
+                                    system("clear");
+                                    cout << "Invalid Input\n"
+                                         << "Press enter to continue\n";
+                                    getline(cin, input);
+                                    input = "upgrade";    
+                                }
+                            } else
+                            {
+                                cout << "Come back when you finish the walls of your castle...\n"
+                                    << "Press enter to continue\n";
+                                getline(cin, input);
+                                input = "";
+                            }
+                        }
+                    } else if (map.buildings[i].getName() == "Wall")
+                    {
+                        while (input == "upgrade")
+                        {
+                            system("clear");
+                            cout << "Gold: " << map.player_army.getGold() << " | Soldiers: " << map.player_army.getArmySize() << " | Stone: " << materials_[0] << " | Wood: " << materials_[1] << "\n"
+                                << "Upgrades:\n"
+                                << "1. Wall -(5 Soldiers 1 Stone 2 Wood)-> Archer Tower\n"
+                                << "   Attacks one enemy within 2 units every turn\n"
+                                << "2. Wall -(25 Gold 2 Stone 2 Wood)-> Serf Homes\n"
+                                << "   2 soldiers per year and 25 gold per year automatically collected\n"
+                                << "3. Wall -(2 Stone 4 Wood)-> Survey Tower\n"
+                                << "   Collects one resource within 2 units every turn\n"
+                                << "4. Exit\n\n";
+                            getline(cin, input);
+                            if (input == "1" && map.player_army.getArmySize() > 5 && materials_[0] >= 1 && materials_[1] >= 2)
+                            {
+                                map.buildings.erase(map.buildings.begin() + i);
+                                map.player_army.setArmySize(map.player_army.getArmySize() - 5);
+                                materials_[0]--;
+                                materials_[1] -= 2;
+                                map.buildings.push_back(Building("Archer Tower", "Attacks one enemy within 2 units every turn", map.player_army.getRow(), map.player_army.getCol()));
+                            } else if (input == "2" && map.player_army.getGold() > 25 && materials_[0] >= 2 && materials_[1] >= 2)
+                            {
+                                map.buildings.erase(map.buildings.begin() + i);
+                                map.player_army.setGold(map.player_army.getGold() - 25);
+                                materials_[0] -= 2;
+                                materials_[1] -= 2;
+                                map.buildings.push_back(Building("Serf Homes", "2 soldiers per year and 25 gold per year automatically collected", map.player_army.getRow(), map.player_army.getCol()));
+                            } else if (input == "3" && materials_[0] >= 2 && materials_[1] >= 4)
+                            {
+                                map.buildings.erase(map.buildings.begin() + i);
+                                materials_[0] -= 2;
+                                materials_[1] -= 4;
+                                map.buildings.push_back(Building("Survey Tower", "Collects one resource within 2 units every turn", map.player_army.getRow(), map.player_army.getCol()));
+                            } else if (input == "4")
+                            {} else
+                            {
+                                system("clear");
+                                cout << "Invalid Input\n"
+                                     << "Press enter to continue\n";
+                                getline(cin, input);
+                                input = "upgrade";    
+                            }
+                        }        
                     }
                 }
             }
@@ -800,12 +979,14 @@ void Game::playGame() // runs game
             while (input == "build")
             {
                 system("clear");
-                cout << "Gold: " << map.player_army.getGold() << "\n"
+                cout << "Gold: " << map.player_army.getGold() << " | Soldiers: " << map.player_army.getArmySize() << " | Stone: " << materials_[0] << " | Wood: " << materials_[1] << "\n"
                      << "Buildings:\n"
                      << "1. Barracks 25g (Makes 1 soldier per year)\n"
                      << "2. Gold Mine 50g (Makes 1 gold every day, stores 15 gold max)\n"
                      << "3. Blacksmith 150g (Increases your strength multiplier by .05x)\n"
-                     << "4. Exit\n\n";
+                     << "4. Castle Construction\n"
+                     << "5. Upgrade List\n"
+                     << "6. Exit\n\n";
                 getline(cin, input);
                 if (input == "1" && map.player_army.getGold() >= 25)
                 {
@@ -821,6 +1002,136 @@ void Game::playGame() // runs game
                     map.player_army.setGold(map.player_army.getGold() - 150);
                     map.player_army.setStrengthMultiplier(map.player_army.getStrengthMultiplier() + .1);
                 } else if (input == "4")
+                {
+                    while (input == "4")
+                    {
+                        system("clear");
+                        bool keepExists = false;
+                        cout << "Gold: " << map.player_army.getGold() << " | Stone: " << materials_[0] << " | Wood: " << materials_[1] << "\n"
+                             << "Castle Construction:\n";
+                        for (int i = 0; i < map.buildings.size(); i++)
+                        {
+                            if (map.buildings[i].getName() == "Keep" || map.buildings[i].getName() == "Trading Guild" || map.buildings[i].getName() == "Military Police" || map.buildings[i].getName() == "Wizard Acadamy")
+                            {
+                                keepExists = true;
+                            }
+                        }
+                        if (!keepExists)
+                        {
+                            cout << "1. Keep 500g 5 stone 3 wood (The core of your castle, boosts army strength by .1x)\n"
+                                 << "   Surround your keep with walls to be able to upgrade your castle\n"
+                                 << "2. Wall 2 stone 2 wood (Expand your castle in the 3x3 around it\n"
+                                 << "   Walls can be upgraded to enhance your castle\n"
+                                 << "3. Exit\n\n";
+                        } else
+                        {
+                            cout << "1. Wall 2 stone 2 wood (Expand your castle in the 3x3 around it)\n"
+                                 << "2. Exit\n\n";
+                        }
+                        getline(cin, input);
+                        if (keepExists)
+                        {
+                            if (input == "1")
+                            {
+                                for (int i = 0; i < map.buildings.size(); i++)
+                                {
+                                    if (map.buildings[i].getName() == "Keep")
+                                    {
+                                        if (map.player_army.getCol() > map.buildings[i].getCol() + 1 || map.player_army.getCol() < map.buildings[i].getCol() - 1)
+                                        {
+                                            input = "invalid";
+                                        }
+                                        if (map.player_army.getRow() > map.buildings[i].getRow() + 1 || map.player_army.getRow() < map.buildings[i].getRow() - 1)
+                                        {
+                                            input = "invalid";
+                                        }   
+                                    }
+                                }
+                            }
+                            if (input == "1" && materials_[0] >= 2 && materials_[1] >= 2)
+                            {
+                                map.buildings.push_back(Building("Wall", "Walls can be upgraded to enhance your castle", map.player_army.getRow(), map.player_army.getCol()));
+                                materials_[0] -= 2;
+                                materials_[1] -= 2;
+                            } else if (input == "2")
+                            {
+                                input = "build";
+                            } else
+                            {
+                                system("clear");
+                                cout << "Invalid Input\n"
+                                     << "Press enter to continue\n";
+                                getline(cin, input);
+                                input = "4";    
+                            }
+                        } else
+                        {
+                            if (input == "2")
+                            {
+                                input = "invalid";
+                            }
+                            if (input == "1" && map.player_army.getGold() > 500 && materials_[0] >= 5 && materials_[1] >= 3)
+                            {
+                                map.buildings.push_back(Building("Keep", "Surround your keep with walls to be able to upgrade your castle", map.player_army.getRow(), map.player_army.getCol()));
+                                map.player_army.setGold(map.player_army.getGold() - 500);
+                                materials_[0] -= 5;
+                                materials_[1] -= 3;
+                                map.player_army.setStrengthMultiplier(map.player_army.getStrengthMultiplier() + .1);
+                            } else if (input == "2" && materials_[0] >= 2 && materials_[1] >= 2)
+                            {
+                                map.buildings.push_back(Building("Wall", "Walls can be upgraded to enhance your castle", map.player_army.getRow(), map.player_army.getCol()));
+                                materials_[0] -= 2;
+                                materials_[1] -= 2;
+                            } else if (input == "3")
+                            {
+                                input = "build";
+                            } else
+                            {
+                                system("clear");
+                                cout << "Invalid Input\n"
+                                    << "Press enter to continue\n";
+                                getline(cin, input);
+                                input = "4";    
+                            }
+                        }
+                    }
+                } else if (input == "5")
+                {
+                    system("clear");
+                    cout << "Gold: " << map.player_army.getGold() << " | Soldiers: " << map.player_army.getArmySize() << " | Stone: " << materials_[0] << " | Wood: " << materials_[1] << "\n"
+                         << "Upgrades:\n\n"
+                         << "Barracks -(2 Stone 2 Wood)-> Military Acadamy\n"
+                         << "Makes 2 soldiers per year with automatic collection\n"
+                         << "Barracks -(2 Soldiers 1 Stone 1 Wood)-> Conquering Party\n"
+                         << "Costs 1 soldiers a year and automatically collects 25 gold per year\n"
+                         << "Barracks -(1 Soldier 1 Stone 2 Wood)-> Tarding Post\n"
+                         << "25 gold per year for 1 random material with automatic collection\n\n"
+                         << "Gold Mine -(2 Stone 2 Wood)-> Market\n"
+                         << "1 gold per turn and a chance of 1 wood or 1 stone a year, with automatic collection\n"
+                         << "Gold Mine -(5 Stone)-> Bank\n"
+                         << "50 gold per year with automatic collection\n\n"
+                         << "Blacksmith -(5 Soldiers 2 Stone 2 Wood)-> Sweatshop\n"
+                         << ".05x multiplier per year -75 gold per year\n"
+                         << "Blacksmith -(3 Stone 1 Wood)-> Quarry\n"
+                         << "1 stone per year\n"
+                         << "Blacksmith -(1 Stone 3 Wood)-> Lumber Camp\n"
+                         << "1 wood per year\n\n"
+                         << "Keep -(500g 2 stone 4 wood)-> Trading Guild\n"
+                         << "Produces 200g 1 wood and 1 stone every year automatically collected\n"
+                         << "Keep -(25 soldiers 3 stone 3 wood)-> Military Police\n"
+                         << "Automatically produce 1 soldier a day and .05x strength per year\n"
+                         << "Keep -(250 gold 10 soldiers 2 stone 2 wood)-> Wizard Acadamy\n"
+                         << "+1 resource per year .1x strength per year\n\n"
+                         << "Wall -(5 soldiers 1 stone 2 wood)-> Archer Tower\n"
+                         << "Attacks one enemy within 2 units every turn\n"
+                         << "Wall -(25 gold 2 stone 2 wood)-> Serf Homes\n"
+                         << "2 soldiers per year and 25 gold per year automatically collected\n"
+                         << "Wall -(2 stone 4 wood)-> Survey Tower\n"
+                         << "Collects one resource within 2 units every turn\n\n"
+                         << "Press enter to continue\n";
+                    getline(cin, input);
+                    input = "build";
+                } else if (input == "6")
                 {} else
                 {
                     system("clear");
@@ -899,6 +1210,17 @@ void Game::playGame() // runs game
                 {
                     map.player_army.setArmySize(map.player_army.getArmySize() - 1);
                     map.player_army.setGold(map.player_army.getGold() + 25);
+                } else if (map.buildings[i].getName() == "Trading Post" && new_year)
+                {
+                    map.player_army.setGold(map.player_army.getGold() - 25);
+                    int random = randomNum(0, 50);
+                    if (random >= 0 && random <= 25)
+                    {
+                        materials_[0]++;
+                    } else
+                    {
+                        materials_[1]++;
+                    }
                 } else if (map.buildings[i].getName() == "Market")
                 {
                     map.player_army.setGold(map.player_army.getGold() + 1);
@@ -927,6 +1249,97 @@ void Game::playGame() // runs game
                 } else if (map.buildings[i].getName() == "Lumber Camp" && new_year)
                 {
                     map.buildings[i].setReserve(map.buildings[i].getReserve() + 1);
+                } else if (map.buildings[i].getName() == "Trading Guild" && new_year)
+                {
+                    map.player_army.setGold(map.player_army.getGold() + 200);
+                    materials_[0]++;
+                    materials_[1]++;
+                } else if (map.buildings[i].getName() == "Military Police")
+                {
+                    map.player_army.setArmySize(map.player_army.getArmySize() + 1);
+                    if (new_year)
+                    {
+                        map.player_army.setStrengthMultiplier(map.player_army.getStrengthMultiplier() + .05);
+                    }
+                } else if (map.buildings[i].getName() == "Wizard Acadamy" && new_year)
+                {
+                    map.player_army.setStrengthMultiplier(map.player_army.getStrengthMultiplier() + .1);
+                } else if (map.buildings[i].getName() == "Archer Tower")
+                {
+                    system("clear");
+                    for (int j = map.buildings[i].getCol() - 3; j < map.buildings[i].getCol() + 3; j++)
+                    {
+                        for (int k = map.buildings[i].getRow() - 3; k < map.buildings[i].getRow() + 3; k++)
+                        {
+                            if (map.trueSpace(k, j) == map.ENEMY_ARMY)
+                            {
+                                int temp_col = map.player_army.getCol();
+                                int temp_row = map.player_army.getRow();
+                                map.player_army.setCol(j);
+                                map.player_army.setRow(k);
+                                fightEnemy();
+                                map.player_army.setCol(temp_col);
+                                map.player_army.setRow(temp_row);
+                                map.setMap(k, j);
+                                j = map.buildings[i].getCol() + 3;
+                                k = map.buildings[i].getRow() + 3;
+                            }
+                        }   
+                    }
+                } else if (map.buildings[i].getName() == "Serf Homes" && new_year)
+                {
+                    map.player_army.setArmySize(map.player_army.getArmySize() + 2);
+                    map.player_army.setGold(map.player_army.getGold() + 25);
+                } else if (map.buildings[i].getName() == "Survey Tower")
+                {
+                    for (int j = map.buildings[i].getCol() - 3; j < map.buildings[i].getCol() + 3; j++)
+                    {
+                        for (int k = map.buildings[i].getRow() - 3; k < map.buildings[i].getRow() + 3; k++)
+                        {
+                            if (map.trueSpace(k, j) == map.RESOURCE)
+                            {
+                                for (int l = 0; l < map.resources.size(); l++)
+                                {
+                                    if (map.resources[l].isPosition(k, j))
+                                    {
+                                        if (map.resources[l].getName() == "Boulder")
+                                        {
+                                            map.resources.erase(map.resources.begin() + l);
+                                            materials_[0]++;
+                                            map.setMap(k, j);
+                                        } else if (map.resources[l].getName() == "Forest")
+                                        {
+                                            map.resources.erase(map.resources.begin() + l);
+                                            materials_[1]++;
+                                            map.setMap(k, j);
+                                        } else if (map.resources[l].getName() == "Chest")
+                                        {
+                                            map.resources.erase(map.resources.begin() + l);
+                                            map.player_army.setGold(map.player_army.getGold() + 30);
+                                            map.setMap(k, j);
+                                        } else if (map.resources[l].getName() == "Ransacked Village")
+                                        {
+                                            map.resources.erase(map.resources.begin() + l);
+                                            map.player_army.setArmySize(map.player_army.getArmySize() + 2);
+                                            map.setMap(k, j);
+                                        } else if (map.resources[l].getName() == "Ancient Temple")
+                                        {
+                                            map.resources.erase(map.resources.begin() + l);
+                                            map.player_army.setStrengthMultiplier(map.player_army.getStrengthMultiplier() + .05);
+                                            map.setMap(k, j);
+                                        } else if (map.resources[l].getName() == "Dragon's Hoard")
+                                        {
+                                            map.resources.erase(map.resources.begin() + l);
+                                            map.player_army.setGold(map.player_army.getGold() + 75);
+                                            map.setMap(k, j);
+                                        }
+                                    }
+                                }
+                                j = map.buildings[i].getCol() + 3;
+                                k = map.buildings[i].getRow() + 3;
+                            }
+                        }   
+                    }
                 }
             }
 
@@ -939,8 +1352,8 @@ void Game::playGame() // runs game
             {
                 for (int i = 0; i < enemy_spawn_rate_; i++)
                 {
-                    row = randomNum(0, map.getNumRows() - 1);
-                    col = randomNum(0, map.getNumCols() - 1);
+                    row = randomNum(0, map.getNumRows());
+                    col = randomNum(0, map.getNumCols());
                     if (map.trueSpace(row, col) == map.EXPLORED)
                     {
                         map.enemy_armies.push_back(Army("Enemy", ((year / 5) + 2) * year, 1 + (.05 * (year / 5)), year + 5, row, col));
@@ -973,8 +1386,8 @@ void Game::playGame() // runs game
 
                 for (int i = 0; i < resource_spawn_rate_; i++)
                 {
-                    row = randomNum(0, map.getNumRows() - 1);
-                    col = randomNum(0, map.getNumCols() - 1);
+                    row = randomNum(0, map.getNumRows());
+                    col = randomNum(0, map.getNumCols());
                     resource = randomNum(1, 100);
                     if (map.trueSpace(row, col) == map.EXPLORED)
                     {

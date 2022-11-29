@@ -1,2 +1,5 @@
 USERNAME | ARMY SIZE | DAYS LASTED | DIFFICULTY
-Charlie | 611 | 1040 | EASY
+Player | 1401 | 1240 | Player | 10 | 2 | CHEATER
+Player | 10 | 2 | CHEATER
+Player | 10 | 61 | CHEATER
+Player | 10 | 99 | CHEATER
