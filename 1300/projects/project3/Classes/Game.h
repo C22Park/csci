@@ -26,7 +26,7 @@ class Game
 
         void playGame(); // runs game
 
-        void howToPlay();
+        void howToPlay(); // tutorial
 };
 
 #endif

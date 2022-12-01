@@ -32,13 +32,13 @@ Game::Game(bool active_cheats[7], string username, int difficulty) // paramateri
     {
         map.player_army.setGold(300);
         map.player_army.setArmySize(5);
-        enemy_spawn_rate_ = 4;
+        enemy_spawn_rate_ = 3;
         resource_spawn_rate_ = 3;   
     } else if (difficulty == 3)
     {
         map.player_army.setGold(150);
         map.player_army.setArmySize(1);
-        enemy_spawn_rate_ = 6;
+        enemy_spawn_rate_ = 5;
         resource_spawn_rate_ = 2;
     }
 }
@@ -451,7 +451,7 @@ void Game::playGame() // runs game
     }
     if (active_cheats_[4])
     {
-        enemy_spawn_rate_ = 5;
+        enemy_spawn_rate_ = 10;
     }
     if (active_cheats_[6])
     {
@@ -655,6 +655,11 @@ void Game::playGame() // runs game
                         cout << "Press enter to continue\n";
                         getline(cin, input);
                         input = "investigate";
+                    } else if (map.buildings[i].getName() == "Bonfire")
+                    {
+                        cout << "Press enter to continue\n";
+                        getline(cin, input);
+                        input = "investigate";
                     } else if (map.buildings[i].getName() == "Blacksmith")
                     {
                         cout << "Press enter to continue\n";
@@ -780,7 +785,7 @@ void Game::playGame() // runs game
                         }
                     } else if (map.buildings[i].getName() == "Gold Mine")
                     {
-                        while (input != "3")
+                        while (input != "4")
                         {
                             system("clear");
                             cout << "Gold: " << map.player_army.getGold() << " | Soldiers: " << map.player_army.getArmySize() << " | Stone: " << materials_[0] << " | Wood: " << materials_[1] << "\n"
@@ -789,7 +794,9 @@ void Game::playGame() // runs game
                                  << "   1 gold per turn and a chance of 1 wood or 1 stone a year, with automatic collection\n"
                                  << "2. Gold Mine -(5 Stone)-> Bank\n"
                                  << "   50 gold per year with automatic collection\n"
-                                 << "3. Cancel\n\n";
+                                 << "3. Gold Mine -(3 Wood)-> Bonfire\n"
+                                 << "   Protects against an enemy raid, then is destroyed\n"
+                                 << "4. Cancel\n\n";
                             getline(cin, input);
                             if (input == "1" && materials_[0] >= 2 && materials_[1] >= 2)
                             {
@@ -797,14 +804,20 @@ void Game::playGame() // runs game
                                 map.buildings.push_back(Building("Market", "1 gold per turn and a chance of 1 wood or 1 stone, with automatic collection", map.player_army.getRow(), map.player_army.getCol()));
                                 materials_[0] -= 2;
                                 materials_[1] -= 2;
-                                input = "3";
+                                input = "4";
                             } else if (input == "2" && materials_[0] >= 5)
                             {
                                 map.buildings.erase(map.buildings.begin() + i);
                                 map.buildings.push_back(Building("Bank", "50 gold per year with automatic collection", map.player_army.getRow(), map.player_army.getCol()));
                                 materials_[0] -= 5;
-                                input = "3";
-                            } else if (input == "3")
+                                input = "4";
+                            } else if (input == "3" && materials_[1] >= 3)
+                            {
+                                map.buildings.erase(map.buildings.begin() + i);
+                                map.buildings.push_back(Building("Bonfire", "Protects against an enemy raid then is destroyed", map.player_army.getRow(), map.player_army.getCol()));
+                                materials_[1] -= 3;
+                                input = "4";
+                            } else if (input == "4")
                             {} else
                             {
                                 system("clear");
@@ -882,7 +895,7 @@ void Game::playGame() // runs game
                                 cout << "1. Keep -(500 Gold 2 Stone 4 Wood)-> Trading Guild\n"
                                      << "   Produces 200g 1 wood and 1 stone every year automatically collected\n"
                                      << "2. Keep -(25 Soldiers 3 Stone 3 Wood)-> Military Police\n"
-                                     << "   Automatically produce 1 soldier a day and .05x strength per year\n"
+                                     << "   Automatically produce 5 soldier a day and .05x strength per year\n"
                                      << "3. Keep -(250 Gold 10 Soldiers 2 Stone 2 Wood)-> Wizard Acadamy\n"
                                      << "   +1 resource per year .1x strength per year\n"
                                      << "4. Exit\n\n";
@@ -1019,7 +1032,7 @@ void Game::playGame() // runs game
                         }
                         if (!keepExists)
                         {
-                            cout << "1. Keep 500g 5 stone 3 wood (The core of your castle, boosts army strength by .1x)\n"
+                            cout << "1. Keep 500g 5 stone 3 wood (The core of your castle, boosts army strength by .2x)\n"
                                  << "   Surround your keep with walls to be able to upgrade your castle\n"
                                  << "2. Wall 2 stone 2 wood (Expand your castle in the 3x3 around it\n"
                                  << "   Walls can be upgraded to enhance your castle\n"
@@ -1077,7 +1090,7 @@ void Game::playGame() // runs game
                                 map.player_army.setGold(map.player_army.getGold() - 500);
                                 materials_[0] -= 5;
                                 materials_[1] -= 3;
-                                map.player_army.setStrengthMultiplier(map.player_army.getStrengthMultiplier() + .1);
+                                map.player_army.setStrengthMultiplier(map.player_army.getStrengthMultiplier() + .2);
                             } else if (input == "2" && materials_[0] >= 2 && materials_[1] >= 2)
                             {
                                 map.buildings.push_back(Building("Wall", "Walls can be upgraded to enhance your castle", map.player_army.getRow(), map.player_army.getCol()));
@@ -1110,7 +1123,9 @@ void Game::playGame() // runs game
                          << "Gold Mine -(2 Stone 2 Wood)-> Market\n"
                          << "1 gold per turn and a chance of 1 wood or 1 stone a year, with automatic collection\n"
                          << "Gold Mine -(5 Stone)-> Bank\n"
-                         << "50 gold per year with automatic collection\n\n"
+                         << "50 gold per year with automatic collection\n"
+                         << "Gold Mine -(3 Wood)-> Bonfire\n"
+                         << "Protects against an enemy raid, then is destroyed\n\n"
                          << "Blacksmith -(5 Soldiers 2 Stone 2 Wood)-> Sweatshop\n"
                          << ".05x multiplier per year -75 gold per year\n"
                          << "Blacksmith -(3 Stone 1 Wood)-> Quarry\n"
@@ -1120,7 +1135,7 @@ void Game::playGame() // runs game
                          << "Keep -(500g 2 stone 4 wood)-> Trading Guild\n"
                          << "Produces 200g 1 wood and 1 stone every year automatically collected\n"
                          << "Keep -(25 soldiers 3 stone 3 wood)-> Military Police\n"
-                         << "Automatically produce 1 soldier a day and .05x strength per year\n"
+                         << "Automatically produce 5 soldier a day and .05x strength per year\n"
                          << "Keep -(250 gold 10 soldiers 2 stone 2 wood)-> Wizard Acadamy\n"
                          << "+1 resource per year .1x strength per year\n\n"
                          << "Wall -(5 soldiers 1 stone 2 wood)-> Archer Tower\n"
@@ -1257,7 +1272,7 @@ void Game::playGame() // runs game
                     materials_[1]++;
                 } else if (map.buildings[i].getName() == "Military Police")
                 {
-                    map.player_army.setArmySize(map.player_army.getArmySize() + 1);
+                    map.player_army.setArmySize(map.player_army.getArmySize() + 5);
                     if (new_year)
                     {
                         map.player_army.setStrengthMultiplier(map.player_army.getStrengthMultiplier() + .05);
@@ -1363,16 +1378,17 @@ void Game::playGame() // runs game
             {
                 for (int i = 0; i < enemy_spawn_rate_; i++)
                 {
+                    bool enemy_removed = false;
                     row = randomNum(0, map.getNumRows());
                     col = randomNum(0, map.getNumCols());
-                    int enemy_army_size = (1 + (year * (2 + (year / 5) + (year / 25))));
+                    int enemy_army_size = (1 + (year * ((1 + (year / 5)) + (2 * (year / 25)))));
                     double enemy_strength_multiplier;
                     if (year / 5 == 0)
                     {
                         enemy_strength_multiplier = 1;
                     } else
                     {
-                        enemy_strength_multiplier = (1 + ((year - 4) * ((year / 5) * .05)));
+                        enemy_strength_multiplier = (1 + ((year - 4) * ((year / 5) * .025)));
                     }
                     int enemy_gold = 0;
                     int counter = 0;
@@ -1398,20 +1414,41 @@ void Game::playGame() // runs game
                         {
                             if (map.enemy_armies[j].isPosition(row, col))
                             {
-                                map.enemy_armies[j].setArmySize(enemy_army_size);
+                                map.enemy_armies[j].setArmySize(map.enemy_armies[j].getArmySize() + enemy_army_size);
                                 map.enemy_armies[j].setStrengthMultiplier(enemy_strength_multiplier);
-                                map.enemy_armies[j].setGold(enemy_gold);
+                                map.enemy_armies[j].setGold(map.enemy_armies[j].getGold() + enemy_gold);
                             }
                         }
                     } else if (map.trueSpace(row, col) == map.BUILDING)
                     {
-                        system("clear");
-                        cout << "Enenmy forces ransacked one of your buildings. You lose " << 5 * year << " gold.\n"
-                             << "Press enter to continue\n";
-                        getline(cin, input);
-                        input = "";
-                        map.player_army.setGold(enemy_army_size);
-                        system("clear");
+                        for (int i = 0; i < map.buildings.size(); i++)
+                        {
+                            if (map.buildings[i].getName() == "Bonfire" && enemy_removed == false)
+                            {
+                                row = map.buildings[i].getRow();
+                                col = map.buildings[i].getCol();
+                                map.buildings.erase(map.buildings.begin() + i);
+                                map.setMap(row, col);
+                                i = map.buildings.size();
+                                enemy_removed = true;
+                            }
+                        }
+                        if (!enemy_removed) {
+                            system("clear");
+                            cout << "Enenmy forces ransacked one of your buildings. You lose " << enemy_army_size << " gold.\n"
+                                << "Press enter to continue\n";
+                            getline(cin, input);
+                            input = "";
+                            map.player_army.setGold(map.player_army.getGold() - enemy_army_size);
+                            system("clear");
+                        } else {
+                            system("clear");
+                            cout << "Enenmy forces attempted to raid your base but were scared off\n"
+                                 << "Press enter to continue\n";
+                            getline(cin, input);
+                            input = "";
+                            system("clear");
+                        }
                     }
                 }
 
