@@ -1,0 +1,365 @@
+Answer choice | Economy | Immigration | Climate Change | Trade/FoPo | Culture | General popularity
+Events 1 - 10: Dem
+Events 11 - 20: General
+Events 21 - 30: GOP
+Events 31 - 40: Special Events
+
+1
+Your opponent has been repeatedly attacking your patriotism, claiming that your party teaches that America is inherently racist. What is your response?
+    A. The United States is the greatest country on Earth. I do not agree with those who would say that this country is tainted by racism.
+    B. My opponent is right. This country is flawed, and when I am President, we will reckon with our own dark past.
+    C. The true mark of a great nation is that it can accept its mistakes and better them in the future, and we are a great nation. We cannot hide from our own dark past.
+    D. Do not respond.
+A|0|0|0|0|-1|0.5
+B|0|0|0|0|2|-1
+C|0|0|0|0|1.5|-0.5
+D|0|0|0|0|0|-1
+Moderates and conservatives might like this answer, but it will upset your base. The Democratic Party relies on voters of color.
+Some progressives will be pleased with this answer, but this kind of talk scares most voters.
+This is a good answer that pleases your base and appeals to your sense of patriotism. Some of your opponent's attacks still land, though.
+Not a terrible idea. This is often a winning issue for Republicans, and it might be best to let the attacks come and focus on other issues.
+
+2
+A prominent Republican in Congress retweeted a video painting blue states as dangerous, dirty, and leeching off of "real" America. Will you hit back on this rhetoric?
+    A. Push back on the facts. California has a historic budget surplus, and our cities are some of the most vibrant, diverse places in the world.
+    B. This divisive rhetoric does nothing but stoke our partisan divisions. Unlike my opponent, I will be a President for *all* Americans.
+    C. Republicans have it backwards. Our cities are our centers of production and culture, and rural America couldn't survive without them.
+    D. Don't make this a campaign theme.
+A|1|1|0|0|1|0.5
+B|0|0|0|0|1|1
+C|0|0|0|0|1.5|-1
+D|0|0|0|0|0|-0.5
+Pointing to the successes of liberal government makes a strong case for your party, but much of the country is unwilling to change their views of cities.
+This is a popular sentiment that turns this into a winning issue for you.
+This responds to divisiveness with divisiveness. Some of your base agrees with this, but most people don't like this kind of rhetoric.
+You decide not to respond to this kind of behavior from Republicans.
+
+3
+On Wednesday evening, a lone gunman took the lives of 3 people and injured 4 others in a park in Houston. Police have not given a motive. How do you respond?
+    A. Just put out a statement expressing sympathy for the victims and their families. I will not turn a tragedy into a campaign issue.
+    B. Make a speech expressing sympathy for the victims' families and highlighting the rising tide of white supremacist terrorism stoked by the GOP.
+    C. Express sympathy for the victims, and bring up how lax gun laws perpetuate the epidemic of gun violence in America.
+    D. Do not respond.
+A|0|0|0|0|-0.25|+0.25
+B|0|0|0|0|1.5|-1
+C|0|0|0|0|0.5|0
+D|0|0|0|0|0|-2
+Some of your base is disappointed that you don't address the root cause of the violence, but otherwise this is an inoffensive statement.
+While the attack was later found to be motivated by white supremacy, some voters think it was tasteless of you to assume this. Progressives are satisfied.
+Conservatives accuse you of politicizing a tragedy, but this statement satisfies your base.
+You should at least put out a statement... 
+
+4
+On Wednesday evening, a lone gunman took the lives of 3 people and injured 4 others in a park in Houston. Police have not given a motive. How do you respond?
+    A. Just put out a statement expressing sympathy for the victims and their families. I will not turn a tragedy into a campaign issue.
+    B. Make a speech expressing sympathy for the victims' families and highlighting the rising tide of white supremacist terrorism stoked by the GOP.
+    C. Express sympathy for the victims, and bring up how lax gun laws perpetuate the epidemic of gun violence in America.
+    D. Do not respond.
+A|0|0|0|0|-0.25|+0.25
+B|0|0|0|0|1|-2
+C|0|0|0|0|0.5|0
+D|0|0|0|0|0|-1
+Some of your base is disappointed that you don't address the root cause of the violence, but otherwise this is an inoffensive statement.
+The attack was later found to be gang-related and not politically-motivated. The media is all over this. This is a major blunder for you.
+Conservatives accuse you of politicizing a tragedy, but this statement satisfies your base.
+You should at least put out a statement... 
+
+5
+A Representative from the left flank of your party attacked your flakiness on his signature climate and ecomomic policy package, claiming it reveals your true position of "neoliberal centrism". Do you clarify your positions?
+    A. Publicly endorse the Representative's positions and hold a campaign event with him a few days later.
+    B. Publicly disavow the Representative's proposals and espouse a more measured approach.
+    C. Do not take a public position, and instead defer to your party's position. The most important thing right now is Democratic unity.
+    D. Do not respond.
+A|1|0|2|0|1|-1
+B|-1|0|-1|0|-0.5|0.5
+C|-0.25|0|-0.5|0|0|0.5
+D|-0.5|0|-0.75|0|0|-0.5
+This will play well to the left and your party base, but this scares moderates and conservatives.
+Moderates and conservatives are happy with this response, but progressives and particularly young people are disavowing you.
+Some people to your party's left are unhappy with this response, but most of your base likes this sentiment.
+His attacks will continue to land, but you won't risk alienating any voting blocs.
+
+6
+A Democratic Senator from a red state disavowed some of your party's welfare policies, saying she doesn't want to turn America into an "entitlement society". What do you say in response?
+    A. I stand by my party's welfare position. Perhaps the Senator would feel more at home in the same party as her junior colleague.
+    B. I agree with the Senator. If we are going to stay competitive, we can't risk stymieing our growth with massive government spending.
+    C. That's what Congress is for. When I'm President, I'll listen to all voices in our party.
+    D. Do not respond.
+A|1.5|0|0|0|0.5|-0.5
+B|-1.5|0|0|0|-0.5|-0.5
+C|0|0|0|0|-0.5|0.5
+D|0|0|0|0|0|-0.5
+This excites much of your base, but scares off some moderates. Remember not to alienate vital parts of your party.
+This soothes moderates, but much of your base is disappointed. Most Democrats don't want to return to the austerity of the '90s.
+Moderates and much of your base like this, but many progressives don't have much faith in Congress anymore.
+You decide to stay out of the intra-party fights. The New York Times runs a few "Dems in Disarray" stories, but this incident mostly goes unnoticed.
+
+11
+At a town hall,  a voter asked you what you will do to protect manufacturing jobs that are being lost overseas. How do you respond?
+    A. This is a natural consequence of economic development and globalization, which is a net positive. We can't expect the government to save every doomed industry.
+    B. These losses are due to the development of our economy and they unfortunately can’t be brought back, but we have a plan to retrain workers to get them back in the economy.
+    C. We will be leaving several of the free trade agreements signed by previous administrations. These have caused irreconciliable damage to our towns and cities in the Heartland.
+    D. As President, I will end our disastrous trade deals and close off our borders to ensure that these jobs are going to good, hard-working Americans.
+A|-1|0|0|2|0|-1
+B|0.5|0|0|1|0|0
+C|0.5|0|0|-1|0|0
+D|0|-2|0|-2|-1|-1
+This answer will play well among those who strongly favor free trade, but will significantly hurt you in the Rust Belt and make you seem unempathetic to the rest of the country.
+This answer will not go over well in the Rust Belt, but seems like common sense to much of liberal America. 
+This answer plays to protectionist voters in the Rust Belt. 
+This answer plays to a conservative base and to voters in the Rust Belt, but will hurt your popularity in much of the rest of the country.
+
+12
+It has been several years since the COVID-19 Pandemic ravaged the United States. At a campaign event, an attendee asks you how you will prevent new outbreaks around the country.
+    A. I will listen to both public health experts and economists. There is a balance to be struck between common sense measures and overcaution.
+    B. We need to engage in targeted lockdowns at home and send vaccines out to the poorer parts of the world. Every infection is a new vector for new variants to arise.
+    C. This is the United States of America! We can't let a virus control our lives! As President, I will issue an executive order banning lockdowns and vaccine mandates nationwide.
+    D. As far as I'm concerned, the pandemic is over among vaccinated Americans. If you've chosen not to get vaccinated, I will not punish those who have with further lockdowns.
+A|0|0|0|0|1|0.5
+B|1|0|0|2|1|0
+C|-2|0|0|0|-2|-0.5
+D|-1|0|0|0|-0.5|-0.5
+This answer will not excite anyone, but it will slightly increase your popularity among all but the most die-hard conservatives.
+This answer will go down well among more liberal and internationalist voters, but lockdowns are becoming increasingly unpopular.
+Conservatives will love this answer. Everyone else will not.
+This answer satisfies both liberals and conservatives on policy, but makes you seem indifferent towards those who have lost loved ones.
+
+13
+Your opponent has claimed that your don't have the mental fortitude to be President, and has challenged you to take a cognitive ability test. What do you do?
+    A. Take a test and release the results. I'm happy to prove them wrong.
+    B. Question their own mental abilities and promise to take the test if they do first.
+    C. This is ridiculous. My opponent knows they can't win on the issues, so they're resorting to petty personal insults.
+    D. Don't respond.
+A|0|0|0|0|0|-0.5
+B|0|0|0|0|-1|0
+C|0|0|0|0|1|-0.25
+D|0|0|0|0|0|-0.5
+This might assuage some of your more skeptical voters' fears, but it just brings you down to your opponent's rhetorical level.
+It's good to hit back on this, but it just brings you down to your opponent's level. The networks are pleased with the drama.
+This answer is a decent response to the attacks, which resonates especially well with liberal voters who are sick of the political drama.
+It's good not to be brought down to your opponent's level.
+
+14
+There has been a stark increase in the number of migrants detained at the southern border. The media is calling it a crisis, and voters are asking how you will deal with it.
+    A. Travel to Texas and meet with border patrol agents, and reaffirm your committment to keeping America's borders safe in a humane fashion. (This will use up one of your rallies.)
+    B. Immigrants make us stronger. As President, I will allieviate the strain on our border guards by opening more pathways to immigrate safely and legally.
+    C. Travel to Arizona and meet with immigrants in detention facilities, and affirm your support for their rights. (This will use up one of your rallies.)
+    D. As President, I will finish building the wall across our southern border to keep them out.
+A|0|-1|0|0|-0.5|0
+B|0|1|0|0|0.5|0
+C|0|2|0|0|1|0
+D|0|-2|0|0|-1|-0.5
+Immigration advocates say this is inhumane, but overall this is a mainstream response and a good campaign opportunity.
+This response will hurt you among conservatives and more populist areas, but will help you among most liberal voters.
+This will greatly harm you among conservatives, and will please progressives and immigration advocates.
+This idea is pretty unpopular nationally. Conservatives are thrilled, however.
+
+15
+Puerto Rico has been hit by a devastating hurricane in yet another intense season, and left without power for several days. 
+    A. Make a statement expressing sympathy for the victims and calling for federal funds to be allocated to their rebuilting efforts.
+    B. Travel to Puerto Rico, meet with the victims, and announce your support for their statehood to speed up the increasingly frequent recovery efforts. (This will use up one of your rallies.)
+    C. Make a statement expressing sympathy for the victims, and pointing to climate change as exacerbating these disasters.
+    D. ...Your point being?
+A|0.5|0.25|-0.5|0|0|0.5
+B|0|0.25|1|0|1|0.5
+C|0|0|0.75|0|0|0.5
+D|0|-0.25|-0.5|0|-0.5|-0.25
+This is a decent and uncontroversial response that will please everyone but die-hard conservatives and climate activists.
+Liberals are very pleased by this announcement, and you get a few good photo ops on the island.
+Much of the GOP is raging at you on Twitter. Liberals are agreeing with you. Most of the country is satisfied.
+Most Americans really don't care about Puerto Rico, and you don't lose much from ignoring this.
+
+16
+At the start of this decade, the country suffered inflation after the supply chain disruptions caused by the pandemic. At a town hall event, a voter asks you how you will prevent this from happening again.
+    A. We need to radically rethink how our global economy works. Relying on countries halfway across the world for our economy to function is not sustainable - the United States should control its own supply chain.
+    B. We need to make sure we are prepared for the next global catastrophe, whatever it may be. I will invest in global early-warning systems for diseases and natural disasters, so we can stop the next disruption before it starts.
+    C. I will make sure Americans are consuming and producing American goods. China released the pandemic on the world, and we can't trust them to keep our economy running.
+    D. I will make it easier for goods to come into our country by easing trade barriers and repealing the Jones Act. A smooth and efficient supply chain means cheaper prices for everyday Americans.
+A|1.5|0|0|-2|0.25|0
+B|1|0|0|1|0|0
+C|0|0|0|-2|-1|0
+D|0|0|0|1|0|-1
+Protectionism, worded to appeal to the left.
+This answer pleases liberals, but some conservatives are wary of this spending and don't trust institutions like these.
+Protectionism, worded to appeal to the right. Republicans are happy to join you in blaming China.
+Most people aren't really convinced by this, but some people on Twitter are overjoyed.
+
+17
+On Friday night, China engaged in one of the largest incursions into Taiwanese airspace in history, and news outlets are speculating about an impending invasion. What is your take on this?
+    A. I will not send Americans halfway across the world to die for another country. We will take measures to protect our national interests, but I will not risk World War 3 over Taiwan.
+    B. Taiwan is a vital ally, and American credibility on the world stage would crumble if we didn't step in to protect them. When I am President, we will not tolerate Chinese incursions into Taiwan.
+    C. Our military is decaying, our ships and fighter jets often decades out of date. We need to match China's rapid militarization to demonstrate that we are prepared for war, should it come to that.
+    D. President Xi is threatened by Taiwan because it demonstrates that Chinese democracy is possible. We cannot let an authoritarian rival crush a flourishing, independent, democratic state.
+A|0|0|0|-1.5|0|-1.5
+B|0|0|0|1|0|1
+C|-0.5|0|0|1.5|0|-0.5
+D|0|0|0|1|1|0.5
+Protecting Taiwan is a rare bipartisan issue which most people are supportive of. Some isolationists are pleased with this response, but most feel that this makes America look weak.
+A good, standard answer which projects strength. Most people are satisfied with this response.
+Protecting Taiwan is a popular issue across the board, and many like that you project military strength. Some people are scared by the talk of war, and others don't like increased military spending.
+This is a popular sentiment which appeals particularly strongly to liberals, but plays well across the board.
+
+18
+At two separate campaign events, you are approached for a photo op by two groups of abortion activists: one pro-choice, and one pro-life. Who do pose with?
+    A. The pro-life group.
+    B. Both groups.
+    C. The pro-choice group.
+    D. Neither group.
+A|0|0|0|0|-1|0
+B|0|0|0|0|0|-0.25
+C|0|0|0|0|1|0
+D|0|0|0|0|0|-0.25
+You side with the anti-abortion activists.
+You decide to take the Joe Manchin approach.
+You side with the pro-choice activists.
+You decide not to involve yourself with either group.
+
+21
+A prominent Republican Congresswoman has started spreading conspiracy theories on Twitter, purporting that your opponent is engaged in a grand conspiracy with China to destroy America through immigration and lockdowns. Do you address this?
+    A. Don't directly address her comments. I won't make things up, but it's not my business to stop her from doing so.
+    B. Retweet the Congresswoman. The Dengist Democrats are coming for you and I alone can stop them!
+    C. Push back on the Congresswoman's conspiracy theories. We don't need to stoop that low. 
+    D. Endorse her policy positions, but push back on the conspiracy elements of her claims.
+A|0|-0.5|0|0|-0.5|0
+B|0|-1|0|0|-1.5|0.5
+C|0|1|0|0|1.5|-0.5
+D|0|-0.5|0|0|0|0.5
+Smart. Most people won't associate you with her conspiracy theories, but this still motivates the Republican base.
+This will certainly motivate your base.
+Liberals are surprised and moderates are thrilled. Most of your party is furious with you.
+You decide it's better not to say the quiet part out loud. The media calls this a "return to sanity" for your party, but your base is frustrated.
+
+22
+A Republican governor from New England recently spoke out against your party's embrace of conspiracy theories, pointing to things like QAnon and attempts to overturn elections. What do you say in response?
+    A. Deny that your party is embracing conspiracy theories. Don't mention QAnon, but do make claims about stolen elections.
+    B. Agree with the Governor. We don't need to make things up, we're better than that.
+    C. Publicly denounce the Governor! QAnon is real and the lamestream media is lying to us!
+    D. Don't respond.
+A|0|0|0|0|-0.75|0
+B|0|0|0|0|1|-0.25
+C|0|0|0|0|-1|-0.25
+D|0|0|0|0|0|0.25
+Most of your voters don't agree with QAnon, but do believe elections are being stolen. This is a decent mainstream Republican response.
+Are you sure about that?
+About half of your base is riled up, the rest just roll their eyes. Some swing voters are scared away.
+You decide to let the Governor do their own thing.
+
+23
+On Wednesday evening, a lone gunman took the lives of 3 people and injured 4 others in a park in Houston. Police have not given a motive. How do you respond?
+    A. Just put out a statement expressing sympathy for the victims and their families. I will not turn a tragedy into a campaign issue.
+    B. Express sympathy for the victims' families and pin the increasing gang violence in our cities on the Democrats.
+    C. Make a speech expressing sympathy for the victims, and preemptively accuse your opponent of politicizing the tragedy.
+    D. Do not respond.
+A|0|0|0|0|-0.5|+0.25
+B|0|0|0|0|-1|-1.5
+C|0|0|0|0|-1|-1.5
+D|0|0|0|0|0|-1
+Most voters are happy with your inoffensive statement. Progressives are unsurprised that you don't address the root cause.
+The attack was later found to be carried out by a right-wing radical. This is a minor blunder for you, but fortunately Tucker is there to smooth things over.
+While you were beginning your speech, your opponent put out an inoffensive statement expressing sympathy for the victims. You've made them look good by comparison.
+You should at least put out a statement...
+
+24
+On Wednesday evening, a lone gunman took the lives of 3 people and injured 4 others in a park in Houston. Police have not given a motive. How do you respond?
+    A. Just put out a statement expressing sympathy for the victims and their families. I will not turn a tragedy into a campaign issue.
+    B. Express sympathy for the victims' families and pin the increasing gang violence in our cities on the Democrats.
+    C. Make a speech expressing sympathy for the victims, and preemptively accuse your opponent of politicizing the tragedy.
+    D. Do not respond.
+A|0|0|0|0|-0.25|+0.25
+B|0|0|0|0|-1|-1
+C|0|0|0|0|-1|-0.75
+D|0|0|0|0|0|-1
+Most voters are happy with your inoffensive statement. Progressives are unsurprised that you don't address the root cause.
+While the attack was later found to be gang-related, some voters think it was tasteless of you to assume this. Conservatives are satisfied.
+Your opponent later tries to accuse you of deflecting against lax gun laws, but it comes off as flailing. Some people still find your initial statement tasteless.
+You should at least put out a statement... 
+
+31
+The Democratic National Convention has begun, and you are expected to lay out your party's platform and message for the campaign. What do you make the focus of your address?
+    A. Reaffirm the Democratic Party's position as the party of civil rights. Specifically focus on LGBTQ+ rights, the rights of women, the rights of immigrants, and racial justice.
+    B. Use the convention as an opportunity to sell my economic and climate policies. The Democrats and I will reinvent a green American economy that will keep us the leaders of the 21st Century.
+    C. Harp on unity. I am a proud Democrat, but I will govern as a president for all Americans, not just Democrats. Together, we will heal this broken country.
+    D. Sell the American people on my signature economic package. We will rebuild America's standing in the world by strengthening our trade alliances and growing our economy.
+A|0.75|1|0|0|1.5|2
+B|1.5|0|1.5|0.75|0.5|2
+C|0|0|0|0|1|3
+D|1|0|0.25|2|0.25|2
+You excite the crowd with a lofty speech focusing on your party's history on civil rights and what we can aspire to in the future.
+You excite the crowd with a lofty speech promising a new era of American climate leadership.
+You excite the crowd with a lofty speech about togetherness and patriotism. The word "united" is frequently emphasized.
+You excite the crowd with a lofty speech about a new American century.
+
+32
+The Republican National Convention has begun, and you are expected to lay out your party's platform and message for the campaign. What do you make the focus of your address?
+    A. Reaffirm the Republican Party's position as the party of freedom from government. Specifically focus on taxes, mask mandates, and getting the government out of schools.
+    B. Talk about unity. I am a Republican, but I will govern as a president for all Americans, not just red states. Together, we will heal this broken country.
+    C. Put forward an 'America First' agenda, focusing on protecting American industry, prioritizing American jobs, and preserving the 'real' American way of life.
+    D. Talk about crime. You will restore law and order to our cities and keep Americans safe from thugs at home and terrorists abroad. 
+A|-1|0|0|0|-1.5|2
+B|0|0|0|0|1|2
+C|0|-1|-0.5|-1|-1|1
+D|0.5|-1|0|-2|-1.5|2
+You excite the crowd by talking about freedom.
+Your speech is surprising to much of the country, and excites many moderates. Your opponent said basically the same thing at their convention.
+People have come to expect this from your party. Your base is riled up, but you don't win over many new voters.
+You excite the crowd by playing on Americans' fears.
+
+33
+On Monday, you travel to New York to visit the 9/11 Memorial and speak to families and survivors. Before you go, several of the leaders of a survivors' relief orgnaization publicly denounces you and says you are not welcome. How do you respond?
+    A. Go there and question their patriotism. They're turning a national tragedy into a spectacle for political points.
+    B. We may disagree, but I respect their decision. That's what being American is all about. Just travel to the memorial and meet with others there.
+    C. Do not comment, but meet with others there.
+    D. Go to the memorial, but don't meet with others.
+A|0|0|0|0|0|-2
+B|0|0|0|0|0.5|0
+C|0|0|0|0|0|0.5
+D|0|0|0|0|0|-0.5
+That was not a good idea. Most of the other survivors and families also refuse to meet you, and media from both sides of the political spectrum is denouncing your comments.
+A pretty popular sentiment. You meet with other organizers at the memorial.
+You decide not to draw attention to it, and meet with other organizers at the memorial.
+You decide not to comment, and make a solo appearance at the memorial instead.
+
+34
+On Monday, you travel to New York to visit the 9/11 Memorial and speak to families and survivors. Before you go, several of the leaders of a survivors' relief orgnaization publicly denounces you and says she will refuse to meet with you. How do you respond?
+    A. Go there and question their patriotism. They're turning a national tragedy into a spectacle for political points.
+    B. We may disagree, but I respect their decision. That's what being American is all about. Just travel to the memorial and meet with others there.
+    C. Do not comment, but meet with others there.
+    D. Go to the memorial, but don't meet with others.
+A|0|0|0|0|0|-2
+B|0|0|0|0|0.5|0
+C|0|0|0|0|0|-2
+D|0|0|0|0|0|-0.5
+That was... not a good idea. Most of the other survivors and families also refuse to meet you, and media from both sides of the political spectrum is denouncing your comments.
+A pretty popular sentiment. You meet with other organizers at the memorial.
+While you're there, several other organizers also denounce you and refuse to meet. It turns into a pretty major news story.
+You decide not to comment, and make a solo appearance at the memorial instead.
+
+35
+Monday is the 2Xth anniversary of 9/11. How will you memorialize the occasion?
+    A. Travel to New York, visit the memorial, and meet with survivors. (This will use up one of your rallies.)
+    B. Give a speech memorializing the event and promoting American intervention against terrorism abroad.
+    C. Give a speech marking the occasion, but don't mention policy.
+    D. Just have an someone write up a statement.
+A|0|0|0|0|0|1.5
+B|0|0|0|1.5|0|1
+C|0|0|0|0|0|1
+D|0|0|0|0|0|0
+You travel to New York and meet with some survivors and family members, and get some positive media coverage out of it.
+You give a speech about keeping the country safe. Many voters are skeptical of intervention, but your speech lands well overall.
+You give a speech about the attack and talk about the victims and impact on the country. It lands pretty well.
+You put out a statement. Your opponent did the same. Nobody seems to care much this year.
+
+36
+Monday is the 2Xth anniversary of 9/11. How will you memorialize the occasion?
+    A. Travel to New York, visit the memorial, and meet with survivors. (This will use up one of your rallies.)
+    B. Give a speech memorializing the event and promoting American intervention against terrorism abroad.
+    C. Give a speech marking the occasion, but don't mention policy.
+    D. Just have an someone write up a statement.
+A|0|0|0|0|0|0.25
+B|0|0|0|1.5|0|-0.5
+C|0|0|0|0|0|-0.5
+D|0|0|0|0|0|-1.5
+You travel to New York and meet with some survivors and family members. Your opponent does the same.
+Many voters are skeptical of intervention, but your speech lands well overall. Your opponent meets with families in New York and gets a positive news cycle.
+You give a speech about the attack and talk about the victims and impact on the country. It lands pretty well, but your opponent meets with families in New York and gets more positive coverage.
+Your opponent travels to New York and meets with victims. The media questions whether you really care about the occasion.
