@@ -1381,14 +1381,14 @@ void Game::playGame() // runs game
                     bool enemy_removed = false;
                     row = randomNum(0, map.getNumRows());
                     col = randomNum(0, map.getNumCols());
-                    int enemy_army_size = (1 + (year * ((1 + (year / 5)) + (2 * (year / 25)))));
+                    int enemy_army_size = (1 + (year * ((1 + (year / 5)) + (2 * (year / 25) + randomNum(0, 2)))));
                     double enemy_strength_multiplier;
                     if (year / 5 == 0)
                     {
                         enemy_strength_multiplier = 1;
                     } else
                     {
-                        enemy_strength_multiplier = (1 + ((year - 4) * ((year / 5) * .025)));
+                        enemy_strength_multiplier = (1 + (((year - 4) + (year / 5) + randomNum(0, 2)) * .025));
                     }
                     int enemy_gold = 0;
                     int counter = 0;
@@ -1399,7 +1399,7 @@ void Game::playGame() // runs game
                         {
                             counter++;
                         }
-                        enemy_gold = enemy_gold + counter;
+                        enemy_gold = enemy_gold + counter + randomNum(0, 1);
                     }
                     if (map.trueSpace(row, col) == map.EXPLORED)
                     {
