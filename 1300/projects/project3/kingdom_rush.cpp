@@ -1,7 +1,8 @@
-/* To Do:
-    1.write all algorithms and comments
-    2. balance game
-*/
+// CSCI 1300 Fall 2022
+// Author: Charlie Park
+// Recitation: 305 - Nikhith Sannidi
+// Project 3
+
 #include <iostream>
 #include <fstream> 
 #include <ctype.h>
