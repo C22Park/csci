@@ -56,7 +56,7 @@ int main()  // main() starts the program
 	{ 
 		cout << "Today you should embrace technology.\n";
 	}
-	if(lucky >= 7 && lucky < 8) // 7 to 8 inclusive
+	if(lucky >= 7 && lucky <= 8) // 7 to 8 inclusive
 	{ 
 		cout << "You should buy some lotto tickets.\n";
 	}
