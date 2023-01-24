@@ -1,0 +1,29 @@
+Script started on 2023-01-24 23:06:53+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="192" LINES="25"]
+$ g++ trueOrFalse.cpp
+$ ./a.out
+False!
+True!
+True!
+False!
+True!
+False!
+True!
+False!
+False!
+False!
+True!
+False!
+True!
+False!
+True!
+False!
+True!
+True!
+True!
+False!
+False!
+True!
+False!
+$ exit
+
+Script done on 2023-01-24 23:07:09+00:00 [COMMAND_EXIT_CODE="0"]
