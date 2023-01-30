@@ -24,10 +24,12 @@ int main()
 	double x, y; // Initializers
 	double output = 0;
 	string operand;
-	bool keepOn = true;
+	bool keep_on = true;
+	bool valid_input = true;
 
-	while(keepOn)
+	while(keep_on)
 	{
+		valid_input = true;
 		cout << "Input 1: ";
 		cin >> x;
 		cout << "Input 2: ";
@@ -50,6 +52,7 @@ int main()
 			{
 				cout << "Invalid denominator (Divide by 0)\n";
 				output = 0;
+				valid_input = false;
 			} else
 			{
 				output = x / y;
@@ -58,14 +61,19 @@ int main()
 		{
 			cout << "Invalid operand.\n";
 			output = 0;
+			valid_input = false;
 		}
 
-		cout << "Result: " << output << "\n"
-			 << "Restart? (Y/N): ";
+		if (valid_input)
+		{
+			cout << "Result: " << output << "\n";
+		}
+
+		cout << "Restart? (Y/N): ";
 		cin >> operand;
 		if (operand == "N")
 		{
-			keepOn = false;
+			keep_on = false;
 		}
 	}
 
