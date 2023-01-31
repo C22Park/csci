@@ -71,7 +71,7 @@ int main()
 
 		cout << "Restart? (Y/N): ";
 		cin >> operand;
-		if (operand == "N")
+		if (operand == "N" || operand == "n")
 		{
 			keep_on = false;
 		}
