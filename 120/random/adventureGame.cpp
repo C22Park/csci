@@ -83,18 +83,38 @@ class Game {
     public:
         Game() {
             player = Entity("Player", "This is you.", 0, 0, "human");
+            
         }
 
-        void generateMap(int x, int y) {
-            //srand(time(NULL));
-            if (rooms.size() == 0) {
-                rooms.push_back(Entity("Your Room", "You woke up here, the ship seems like it crashed.", x, y, "room"));
+        void printMap() {
+            bool room_found = false;
+            for (int y = 5; y >= -5; y--) {
+                for (int x = -5; x <= 5; x++) {
+                    if (player.getX() == x && player.getY() == y) {
+                        cout << "* ";
+                    } else {
+                        room_found = false;
+                        for (int i = 0; i < rooms.size(); i++) {
+                            if (rooms[i].getX() == x && rooms[i].getY() == y) {
+                                cout << "# ";
+                                room_found = true;
+                            }
+                        }
+                        if (room_found == false) {
+                            cout << "- ";
+                        }
+                    }
+                }
+                cout << "\n";
             }
         }
 };
 
 int main() {
 
+    Game test;
+    test.generateMap(0, 0);
+    test.printMap();
 
     return 0;
 }
