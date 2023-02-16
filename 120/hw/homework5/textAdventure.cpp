@@ -1,3 +1,10 @@
+/*
+	Charles Park
+	Section 5
+	2/16/23
+	Assignment 5	
+*/
+
 #include <iostream>
 
 using namespace std;
@@ -258,7 +265,124 @@ int goblinCamp() {
                 input = 0;
                 cin.ignore();
             }
-        } else if (looted == false && questManager("quest", 0))
+        } else if (looted == false && questManager("quest", 0) && questManager("stone", 0) == 0) {
+            cout << "1) Loot the camp\n"
+                 << "2) Enter the waterfall\n"
+                 << "3) Head back to the path\n";
+            cin >> input;
+            cin.ignore();
+            if (input == 1) {
+                system("clear");
+                cout << "You didn't find much of value except a chest full of 25 gold.\n"
+                     << "Press enter to continue.\n";
+                looted = true;
+                questManager("add_gold", 25);
+                cin.ignore();
+            } else if (input == 2) {
+                system("clear");
+                cout << "At the back of the waterfall you find a blue gem full of magic energy.\n"
+                     << "Press enter to take it.\n";
+                questManager("change_stone", 0);
+                cin.ignore();
+                system("clear");
+                cout << "The opening behind the waterfall begins to close.\n"
+                     << "Press enter to continue.\n";
+                cin.ignore();
+            } else if (input == 3) {
+                return 3;
+            } else {
+                cout << "Invalid input. Press enter.\n";
+                input = 0;
+                cin.ignore();
+            }
+        } else if (looted && questManager("quest", 0) == 0) {
+            cout << "1) Head back to the path\n";
+            cin >> input;
+            cin.ignore();
+            if (input == 1) {
+                return 3;
+            } else {
+                cout << "Invalid input. Press enter.\n";
+                input = 0;
+                cin.ignore();
+            }
+        } else if (looted && questManager("quest", 0) && questManager("stone", 0) == 0) {
+            cout << "1) Enter the waterfall\n"
+                 << "2) Head back to the path\n";
+            cin >> input;
+            cin.ignore();
+            if (input == 1) {
+                system("clear");
+                cout << "At the back of the waterfall you find a blue gem full of magic energy.\n"
+                     << "Press enter to take it.\n";
+                questManager("change_stone", 0);
+                cin.ignore();
+                system("clear");
+                cout << "The opening behind the waterfall begins to close.\n"
+                     << "Press enter to continue.\n";
+                cin.ignore();
+            } else if (input == 2) {
+                return 3;
+            } else {
+                cout << "Invalid input. Press enter.\n";
+                input = 0;
+                cin.ignore();
+            }
+        } else if (looted && questManager("stone", 0)) {
+            cout << "1) Head back to the path\n";
+            cin >> input;
+            cin.ignore();
+            if (input == 1) {
+                return 3;
+            } else {
+                cout << "Invalid input. Press enter.\n";
+                input = 0;
+                cin.ignore();
+            }
+        } else if (looted = false && questManager("stone", 0)) {
+            cout << "1) Loot the camp\n"
+                 << "2) Head back to the path\n";
+            cin >> input;
+            cin.ignore();
+            if (input == 1) {
+                system("clear");
+                cout << "You didn't find much of value except a chest full of 25 gold.\n"
+                     << "Press enter to continue.\n";
+                looted = true;
+                questManager("add_gold", 25);
+                cin.ignore();
+            } else if (input == 2) {
+                return 3;
+            } else {
+                cout << "Invalid input. Press enter.\n";
+                input = 0;
+                cin.ignore();
+            }
+        }
+    }
+}
+
+int town() {
+    int input = 0;
+    while (input < 1 || input > 3) {
+        system("clear");
+        cout << "You enter the town of Longboum, there's a large tavern in front of you and behind it is an imposing marble tower.\n"
+            << "What do you do?\n"
+            << "1) Head to the tavern\n"
+            << "2) Go to the magic tower\n"
+            << "3) Return to the path\n";
+        cin >> input;
+        cin.ignore();
+        if (input == 1) {
+            return 7;
+        } else if (input == 2) {
+            return 8;
+        } else if (input == 3) {
+            return 3;
+        } else {
+            cout << "Invalid input. Press enter.\n";
+                cin.ignore();
+        }
     }
 }
 
@@ -279,19 +403,16 @@ int main() {
             case 4:
                 path = fishCity();
                 break;
-            /*case 5:
+            case 5:
                 path = goblinCamp();
                 break;
             case 6:
                 path = town();
                 break;
-            case 7:
-                path = waterfall();
-                break;
-            case 8:
+            /*case 7:
                 path = tavern();
                 break;
-            case 9:
+            case 8:
                 path = mageTower();
             default:
                 run = false;
