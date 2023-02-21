@@ -10,7 +10,9 @@ int main(){
   //function y = x
 
   int startingX = 0;
-  int stoppingX = 4;
+  int stoppingX = 0;
+  cout << "Enter the lower bounds, then upper bounds for integrating y = x\n";
+  cin >> startingX >> stoppingX;
 
   double height = 0.0;
   double width = 0.0;
@@ -29,7 +31,7 @@ int main(){
   width = f - s;
   area = height * width;
   sum += area;
-  cout << "Step " << i+1 << " area " << area << endl;
+  //cout << "Step " << i+1 << " area " << area << endl;
   }
   cout << "Total area: " << sum << endl;
 
