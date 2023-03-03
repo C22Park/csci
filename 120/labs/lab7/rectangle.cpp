@@ -68,6 +68,6 @@ int main() {
     charles.setDimensions(width, height);
     charles.print();
     charles.draw();
-    cout << charles.area() << "\n";
-    cout << charles.perimeter() << "\n";
+    cout << "Area: " << charles.area() << "\n";
+    cout << "Perimeter: " << charles.perimeter() << "\n";
 }
