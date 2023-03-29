@@ -1,0 +1,8 @@
+Variable = Guess / Actual Answer + Description
+x = 99 / 99 Right no description needed
+y = 101 / 101 Right no description needed
+a[0] = 102 / 102 Right no description needed
+a[1] = 8 / 8 Right no description needed
+a[2] = 11 / 11 Right no description needed
+a[3] = 12 / 12 Right no description needed
+a[4] = 456 / 456 Right no description needed
