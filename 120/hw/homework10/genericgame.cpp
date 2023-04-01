@@ -24,36 +24,72 @@ void check_position(int &);
 const int board_length = 20;
 
 int main(){
+  cout << "Welcome to Gold Run\n"
+       << "The goal of this game is to obtain the most gold possible in the map before someone finishes.\n"
+       << "You will roll each turn and depending on the space either move or get gold.\n"
+       << "First person to finish gets 10 additional gold and the winner is whoever has the most at the end.\n"
+       << "Have fun! Press enter to continue.\n";
+  cin.ignore();
   int current_player = 1, roll;
   int player1_position = 0, player2_position = 0;
+  int player1_gold = 0, player2_gold = 0;
+  int position_check = 0;
   square the_board[board_length];  // declare an array of squares
   srand(time(NULL));
   read_board(the_board);
+  cout << "Player 1 Gold: " << player1_gold << "  |  Player 2 Gold: " << player2_gold << "\n";
   print_board(the_board,player1_position,1);
   print_board(the_board,player2_position,2);
   do{
-      cout<<"\n\n\nPlayer "<<current_player<<" type enter to roll.\n";
-      cin.ignore();
-      roll = 1 + (rand() % 5);
-      cout << "Player "<<current_player<<" rolled a "<<roll<<".\n";
-      if(current_player == 1){
+     cout<<"\n\n\nPlayer "<<current_player<<" press enter to roll.\n";
+     cin.ignore();
+     roll = 1 + (rand() % 5);
+     cout << "Player "<<current_player<<" rolled a "<<roll<<".\n";
+     if(current_player == 1){
          player1_position += roll;
          check_position(player1_position);
+         position_check = player1_position;
          player1_position += the_board[player1_position].action();
+         position_check -= player1_position;
+         if (position_check == 0) {
+          if (player1_position == 2 || player1_position == 10 || player1_position == 13 || player1_position == 18) {
+               player1_gold += 5;
+          }
+         }
          check_position(player1_position);
-      }
+     }
      else{
         player2_position += roll;
         check_position(player2_position);
+        position_check = player2_position;
         player2_position += the_board[player2_position].action();
+        position_check -= player2_position;
+        if (position_check == 0) {
+          if (player2_position == 2 || player2_position == 10 || player2_position == 13 || player2_position == 18) {
+               player2_gold += 5;
+          }
+         }
         check_position(player2_position);
      }
+     cout << "Player 1 Gold: " << player1_gold << "  |  Player 2 Gold: " << player2_gold << "\n";
      print_board(the_board,player1_position,1);
      print_board(the_board,player2_position,2);
      current_player = (current_player % 2) + 1;
   }while((player1_position<board_length-1) && (player2_position<board_length-1));
   current_player = (current_player % 2) + 1;
-  cout << "\nPlayer " << current_player << " Wins!!!\n";
+  if (current_player == 1) {
+     player1_gold += 10;
+  } else {
+     player2_gold += 10;
+  }
+  cout << "\nPlayer 1 Gold: " << player1_gold << "  |  Player 2 Gold: " << player2_gold << "\n";
+  if (player1_gold > player2_gold) {
+     cout << "\nPlayer 1 Wins!!!\n";
+  } else if (player2_gold > player1_gold) {
+     cout << "\nPlayer 2 Wins!!!\n";
+  } else {
+     cout << "\nIt's a Tie!!!\n";
+  }
   cin.ignore();
   return 0;
 }

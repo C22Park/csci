@@ -1,3 +1,10 @@
 7 -2 ? Go back 2 squares. 
+17 -2 ? Go back 2 squares. 
+15 +3 % Lucky day, go ahead 3.
 4 +1 * Go ahead 1 square.
+11 +1 * Go ahead 1 square.
 6 +3 % Lucky day, go ahead 3.
+2 0 $ Gain 5 gold.
+10 0 $ Gain 5 gold.
+13 0 $ Gain 5 gold.
+18 0 $ Gain 5 gold.
