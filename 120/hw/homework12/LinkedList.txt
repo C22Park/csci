@@ -1,0 +1,101 @@
+/*
+Charles Park
+Section 5
+4/24/23
+Assignment 12
+*/
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class node{
+   private:
+     node *next;
+     string name;
+     int id;
+     double balance;
+   public:
+     void setnext(node *n){next = n;} // inline function
+     void setdata(string n){name = n;}  // inline function
+     void setid(int n){id = n;}  // inline function
+     void setbalance(double n){balance = n;}  // inline function
+     void print(); // defined below
+     void append(string, int, double);
+     int length();
+     void clear();
+};
+
+void node::print(){
+   cout << name << "\n"
+        << id << "\n"
+        << balance << "\n";
+   if(next != NULL)
+      next -> print();
+}
+
+void node::append(string _name, int _id, double _balance) {
+  if (next != NULL) {
+    next -> append(_name, _id, _balance);
+  } else {
+    node *addition;
+    addition = new node();
+    addition -> setdata(_name);
+    addition -> setid(_id);
+    addition -> setbalance(_balance);
+    addition -> setnext(NULL);
+    next = addition;
+  }
+}
+
+int node::length() {
+  int size;
+  if (next != NULL) {
+    size = next -> length();
+    size++;
+  } else {
+    size = 1;
+  }
+  return size;
+}
+
+void node::clear(){
+   if(next != NULL)
+      next -> clear();
+   delete this;
+}
+
+int main(){
+  node *head, *temp;  // pointers to a node object
+  temp = new node();  // create a new node object
+  temp -> setdata("Sally"); // add data
+  temp -> setid(0);
+  temp -> setbalance(10.00);
+  temp -> setnext(NULL);  // make the next object Null
+  head = temp;           // make head point to the beginning of the list
+  temp = new node();  // create another new node object
+  temp -> setdata("Fred"); // add data
+  temp -> setid(1);
+  temp -> setbalance(23.45);
+  temp -> setnext(head); // 'point' the new object to the beginning of the list
+  head = temp;          // make head point to the new beginning of the list
+  temp = new node();    // repeat
+  temp -> setdata("Anne");
+  temp -> setid(2);
+  temp -> setbalance(2.30);
+  temp -> setnext(head);
+  head = temp;
+  head->print();       // print the list
+  cout << head->length() << "\n";
+  head->append("John", 3, 10.32);
+  head->print();
+  cout << head->length() << "\n";
+  head->clear();
+  temp = new node();  // create a new node object
+  temp -> setdata("New"); // add data
+  temp -> setid(0);
+  temp -> setbalance(0.00);
+  temp -> setnext(NULL);  // make the next object Null
+  head = temp;           // make head point to the beginning of the list
+  head->print();
+}

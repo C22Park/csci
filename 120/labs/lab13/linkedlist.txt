@@ -1,0 +1,94 @@
+// First Define a node class, then define a linked list class
+class node{
+   private:
+     node *next;
+     string name;
+   public:
+     void setnext(node *n){next = n;} // inline function
+     void setdata(string n){name = n;}  // inline function
+     string getdata() {return name;}
+     node *getnext() {return next;}
+     void remove() {delete this;}
+     void print(); // defined below
+     void reverseprint();
+     void clear();
+};
+
+void node::clear(){
+   if(next != NULL)
+      next -> clear();
+   delete this;
+}
+
+void node::print(){
+   cout << name << endl;
+   if(next != NULL)
+      next -> print();
+}
+
+void node::reverseprint() {
+  if (next != NULL) {
+   next -> reverseprint();
+   cout << name << "\n";  
+  } else {
+   cout << name << "\n";  
+  }
+}
+
+// Definition of the linked list class
+
+class linkedlist{
+   private:
+     node *head;
+     int len;
+   public:
+     linkedlist();
+     void push(node *);
+     void print();
+     void reverseprint();
+     void clear();
+     string pop();
+};
+
+linkedlist::linkedlist(){ // constructor
+   head = NULL;
+   len = 0;
+}
+
+void linkedlist::push(node *n){
+  n->setnext(head);
+  head = n;
+  len += 1;
+}
+
+void linkedlist::print(){
+  if(head != NULL){
+     head -> print();
+  }
+}
+
+void linkedlist::reverseprint(){
+  if(head != NULL){
+     head -> reverseprint();
+  }
+}
+
+void linkedlist::clear(){
+  if(head != NULL){
+     head-> clear();
+  }
+  head = NULL;
+  len = 0;
+}
+
+string linkedlist::pop(){
+  
+  if (head != NULL) {
+    string removed = head -> getdata();
+    head = head -> getnext();
+    len -= 1;
+    return removed;
+  } else {
+    return "";
+  }
+}
